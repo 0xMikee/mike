@@ -1,8 +1,8 @@
 import React from "react";
-import { IconSVGProps } from "~/components/IconSVG";
+import { IconSVGProps } from "~/components/IconSVG"
 
 interface IconSVGSelectorProps extends IconSVGProps {
-  svg: any;
+  svg: any
 }
 
 export const IconSVGSelector = ({
@@ -14,13 +14,11 @@ export const IconSVGSelector = ({
   iconClass = "",
   extendedClass = "",
 }: IconSVGSelectorProps) => {
-  return (
-    enabled && (
+  return enabled ? (
       <svg className={`${iconClass ? iconClass : id} ${extendedClass}`}>
         <title>{title}</title>
         <use xlinkHref={`${svg}#${id}`} />
         {children}
       </svg>
-    )
-  );
-};
+    ) : null
+}
