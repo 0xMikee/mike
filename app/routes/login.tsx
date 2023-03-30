@@ -2,16 +2,16 @@ import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, Link, useActionData, useSearchParams } from "@remix-run/react";
 import * as React from "react";
-import loginStyles from "../styles/css/6_routes/login.css"
+import loginStyles from "../styles/css/6_routes/login.css";
 
 import { createUserSession, getUserId } from "~/session.server";
 import { verifyLogin } from "~/models/user.server";
 import { safeRedirect, validateEmail } from "~/utils";
-import {useRef} from "react";
+import { useRef } from "react";
 
 export const links = () => {
-  return [{rel: "stylesheet", href: loginStyles}]
-}
+  return [{ rel: "stylesheet", href: loginStyles }];
+};
 
 export async function loader({ request }: LoaderArgs) {
   const userId = await getUserId(request);
@@ -84,59 +84,48 @@ export default function LoginPage() {
       <div className="login">
         <Form method="post" className="login__form">
           <div className="login__email">
-            <label
-              htmlFor="email"
-              className="login__label"
-            >
+            <label htmlFor="email" className="login__label">
               Email
             </label>
 
-              <input
-                ref={emailRef}
-                id="email"
-                required
-                autoFocus={true}
-                name="email"
-                type="email"
-                autoComplete="email"
-                aria-invalid={actionData?.errors?.email ? true : undefined}
-                aria-describedby="email-error"
-                className="login__input"
-              />
-              {actionData?.errors?.email && (
-                <div className="login__errorLabel" id="email-error">
-                  {actionData.errors.email}
-                </div>
-              )}
+            <input
+              ref={emailRef}
+              id="email"
+              required
+              autoFocus={true}
+              name="email"
+              type="email"
+              autoComplete="email"
+              aria-invalid={actionData?.errors?.email ? true : undefined}
+              aria-describedby="email-error"
+              className="login__input"
+            />
+            {actionData?.errors?.email && (
+              <div className="login__errorLabel" id="email-error">
+                {actionData.errors.email}
+              </div>
+            )}
           </div>
 
           <div className="login__password">
-            <label
-              htmlFor="password"
-              className="login__label"
-            >
+            <label htmlFor="password" className="login__label">
               Password
             </label>
-              <input
-                id="password"
-                ref={passwordRef}
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                aria-invalid={actionData?.errors?.password ? true : undefined}
-                aria-describedby="password-error"
-                className="login__input"
-              />
-              {actionData?.errors?.password && (
-                <div className="">
-                  {actionData.errors.password}
-                </div>
-              )}
-            </div>
-          <button
-            type="submit"
-            className="login__button"
-          >
+            <input
+              id="password"
+              ref={passwordRef}
+              name="password"
+              type="password"
+              autoComplete="current-password"
+              aria-invalid={actionData?.errors?.password ? true : undefined}
+              aria-describedby="password-error"
+              className="login__input"
+            />
+            {actionData?.errors?.password && (
+              <div className="">{actionData.errors.password}</div>
+            )}
+          </div>
+          <button type="submit" className="login__button">
             Log in
           </button>
           <div className="">
@@ -147,10 +136,7 @@ export default function LoginPage() {
                 type="checkbox"
                 className=""
               />
-              <label
-                htmlFor="remember"
-                className=""
-              >
+              <label htmlFor="remember" className="">
                 Remember me
               </label>
             </div>
