@@ -1,0 +1,26 @@
+.errorBoundary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+.errorBoundary__wrapper {
+  display: grid;
+  justify-items: center;
+  padding: 10px;
+  row-gap: 5px;
+}
+.errorBoundary__header {
+  font-size: 20px;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+.errorBoundary__message {
+  padding: 12px;
+  border: 1px solid #fd405d;
+  background: #3a2626;
+  color: #ffffff;
+  border-radius: 8px;
+}

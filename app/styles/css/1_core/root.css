@@ -1,0 +1,51 @@
+@font-face {
+  font-family: "Gruppo-Regular";
+  src: url("../../../../public/fonts/Gruppo-Regular.woff2") format("woff2");
+}
+html:not(.dark) {
+  --color-primary: #e1e1e7;
+  --color-secondary: #ffffff;
+  --color-support-5: #ffffff;
+  --color-combination-1: #001e28;
+  --color-secondary-1: #001e28;
+  --color-secondary-2: #00141e;
+  --color-secondary-3: #0f2d37;
+  --color-combination-4: #0f2d37;
+  --color-combination-14: #fff;
+  --color-text: #2b2b2b;
+}
+html {
+  --color-primary: #0d1117;
+  --color-secondary: #161b22;
+  --color-support-5: #010a0f;
+  --color-combination-1: #ffffff;
+  --color-secondary-1: #00141e;
+  --color-secondary-2: #eee;
+  --color-secondary-3: #0f2d37;
+  --color-combination-4: #eee;
+  --color-combination-14: #0f2d37;
+  --color-text: #eeeeee;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  font-family: Matter-Regular, sans-serif;
+  min-height: 100vh;
+}
+.container {
+  display: grid;
+  grid-template: ".  container   ." auto / 20% 60% 20%;
+}
+@media only screen and (max-width: 1140px) {
+  .container {
+    grid-template: ".  container   ." auto / 10% 80% 10%;
+  }
+}
+.content {
+  grid-area: container;
+}

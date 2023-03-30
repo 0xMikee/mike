@@ -1,0 +1,55 @@
+@import "../1_core/breakpoints";
+
+.navbar {
+  &__hamburger {
+    display: none;
+    border: 1px solid #a7a7a7;
+    background: none;
+    border-radius: 8px;
+    padding: 4px;
+    color: var(--color-text);
+
+    @media only screen and (max-width: @breakpoint-middle) {
+      display: flex;
+    }
+
+    &:hover {
+      cursor: pointer;
+      background: var(--color-primary);
+    }
+  }
+
+  &__mobileMenu {
+    display: none;
+    padding: 16px;
+    justify-content: center;
+    width: 95vw;
+    height: 25vh;
+    position: relative;
+    left: -15px;
+    align-items: center;
+    border-radius: 8px;
+    background-color: var(--color-secondary);
+
+    @media only screen and (max-width: @breakpoint-middle) {
+      display: flex;
+    }
+
+    &::before {
+      background-color: inherit;
+      top: -4px;
+      content: "";
+      height: 8px;
+      position: absolute;
+      right: 55px;
+      transform: rotate(45deg);
+      width: 8px;
+    }
+  }
+
+  &__mobileLinks {
+    display: grid;
+    justify-items: center;
+    color: white;
+  }
+}

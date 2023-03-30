@@ -1,0 +1,10 @@
+.styledComponent {
+  width: 300px;
+  height: 300px;
+}
+.styledComponent__dark {
+  background-color: #001e28;
+}
+.styledComponent__light {
+  background-color: #a7a7a7;
+}

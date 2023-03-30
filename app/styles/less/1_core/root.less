@@ -1,0 +1,31 @@
+@import "../3_fonts/Gruppo-Regular";
+@import "breakpoints";
+@import "../2_theme/light";
+@import "../2_theme/dark";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  font-family: Matter-Regular, sans-serif;
+  min-height: 100vh;
+}
+
+.container {
+  display: grid;
+  grid-template: ".  container   ." auto / 20% 60% 20%;
+
+  @media only screen and (max-width: @breakpoint-layout-wide) {
+    grid-template: ".  container   ." auto / 10% 80% 10%;
+  }
+}
+
+.content
+{
+  grid-area: container;
+}
