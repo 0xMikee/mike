@@ -29,6 +29,6 @@ const UserPage = () => {
       </header>
     </div>
   );
-}
+};
 
 export default UserPage;
