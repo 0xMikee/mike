@@ -1,7 +1,7 @@
 import {useUser, useOptionalAdminUser} from "~/utils/misc";
 import type { LoaderFunction} from "@remix-run/node";
 import {json} from "@remix-run/node";
-import {requireAdminUser} from "~/session.server";
+import {requireAdminUser} from "~/utils/session.server";
 import styles from "../styles/css/userPage.css"
 import { classNames } from "~/utils/classNames";
 

@@ -26,7 +26,7 @@ model Image {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user User?
+  user      User?
 }
 
 model User {
@@ -41,9 +41,8 @@ model User {
   image   Image?  @relation(fields: [imageId], references: [fileId])
   imageId String? @unique
 
-  password Password?
-  notes    Note[]
-  admin    Admin?
+  password    Password?
+  admin       Admin?
 }
 
 model Password {
@@ -59,16 +58,4 @@ model Admin {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-model Note {
-  id    String @id @default(cuid())
-  title String
-  body  String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId String
 }

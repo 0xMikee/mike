@@ -1,9 +1,7 @@
-import { Link, Form } from "@remix-run/react";
-
-import { useOptionalUser } from "~/utils/misc";
+import { getUserImgSrc, useOptionalUser } from "~/utils/misc";
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { requireUser } from "~/session.server";
+import { requireUser } from "~/utils/session.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
   await requireUser(request);
@@ -14,8 +12,15 @@ export default function Index() {
   const user = useOptionalUser();
   return (
     <div className="content">
-      <div>{user?.email}</div>
-      <div>{user?.id}</div>
+      <div>Email: {user?.email}</div>
+      <div>Username: {user?.username}</div>
+      <div>Name: {user?.name}</div>
+      <div>Id: {user?.id}</div>
+      <img
+        src={getUserImgSrc(user?.imageId)}
+        alt={user?.username}
+        className="h-full w-full rounded-full object-cover"
+      />
     </div>
   );
 }

@@ -16,8 +16,8 @@ import {
 } from '@remix-run/react'
 import { useState } from 'react'
 import { z } from 'zod'
-import * as deleteImageRoute from '~/routes/resources+/delete-image'
-import { authenticator, requireUserId } from '~/utils/auth.server'
+import * as deleteImageRoute from '~/utils/delete-image'
+import { authenticator, requireUserId } from "~/utils/auth.server";
 import { prisma } from '~/utils/db.server'
 import {
 	Button,
@@ -27,6 +27,7 @@ import {
 	useForm,
 } from '~/utils/forms'
 import { getUserImgSrc } from '~/utils/misc'
+import { getUserId } from "~/utils/session.server";
 
 const MAX_SIZE = 1024 * 1024 * 3 // 3MB
 
@@ -35,7 +36,7 @@ const PhotoFormSchema = z.object({
 })
 
 export async function loader({ request }: DataFunctionArgs) {
-	const userId = await requireUserId(request)
+	const userId = await getUserId(request)
 	const user = await prisma.user.findUnique({
 		where: { id: userId },
 		select: { imageId: true, name: true, username: true },
@@ -47,7 +48,7 @@ export async function loader({ request }: DataFunctionArgs) {
 }
 
 export async function action({ request }: DataFunctionArgs) {
-	const userId = await requireUserId(request)
+	const userId = await getUserId(request)
 	const contentLength = Number(request.headers.get('Content-Length'))
 	if (
 		contentLength &&

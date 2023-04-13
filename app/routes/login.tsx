@@ -4,8 +4,8 @@ import { Form, Link, useActionData, useSearchParams } from "@remix-run/react";
 import * as React from "react";
 import loginStyles from "../styles/css/6_routes/login.css";
 
-import { createUserSession, getUserId } from "~/session.server";
-import { verifyLogin } from "~/models/user.server";
+import { createUserSession, getUserId } from "~/utils/session.server";
+import { verifyLogin } from "~/utils/auth.server";
 import { safeRedirect, validateEmail } from "~/utils/misc";
 import { useRef } from "react";
 
@@ -145,7 +145,7 @@ export default function LoginPage() {
               <Link
                 className=""
                 to={{
-                  pathname: "/join",
+                  pathname: "/signup",
                   search: searchParams.toString(),
                 }}
               >

@@ -14,7 +14,7 @@ import {
   useCatch,
   useLoaderData,
 } from "@remix-run/react";
-import { getUser } from "./session.server";
+import { getUser } from "~/utils/session.server";
 import Navbar from "~/components/navbar";
 import { ThemeProvider, useTheme } from "~/utils/themeProvider";
 import type { ReactNode } from "react";

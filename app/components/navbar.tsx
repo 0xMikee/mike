@@ -11,6 +11,7 @@ import {
 import type { ReactNode } from "react";
 import { useOptionalAdminUser, useOptionalUser } from "~/utils/misc";
 import { LogoutConfirm } from "./logoutConfirm";
+import { UserMenu } from "~/components/userMenu";
 
 export function links() {
   return [
@@ -22,7 +23,7 @@ export function links() {
 
 export const LINKS = [
   { title: "Login", to: "/login" },
-  { title: "Join", to: "/join" },
+  { title: "Signup", to: "/signup" },
 ];
 
 export function NavLink({
@@ -68,12 +69,13 @@ const Navbar = () => {
         {isAdmin && <NavLink to={"/admin"}>Admin</NavLink>}
         {user && (
           <>
-            <NavLink to={"/notes"}>Notes</NavLink>
+            <NavLink to={"/settings/profile"}>Notes</NavLink>
             <LogoutConfirm />
           </>
         )}
       </ul>
       <div className="navbar__settings">
+        <UserMenu />
         <HamburgerMenu />
         <DarkModeToggle />
       </div>

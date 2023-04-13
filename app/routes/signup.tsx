@@ -7,8 +7,8 @@ import { json, redirect } from "@remix-run/node";
 import { Form, Link, useActionData, useSearchParams } from "@remix-run/react";
 import * as React from "react";
 import loginStyles from "~/styles/css/6_routes/login.css";
-import { getUserId, createUserSession } from "~/session.server";
-import { createUser, getUserByEmail } from "~/models/user.server";
+import { createUser, getUserByEmail} from "~/utils/auth.server";
+import { getUserId, createUserSession } from "~/utils/session.server";
 import { safeRedirect, validateEmail } from "~/utils/misc";
 import { useEffect, useRef } from "react";
 
@@ -24,6 +24,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 interface ActionData {
   errors: {
+    userName?: string;
     name?: string;
     email?: string;
     password?: string;
@@ -34,6 +35,7 @@ export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const name = formData.get("name");
   const email = formData.get("email");
+  const username = formData.get("username");
   const password = formData.get("password");
   const redirectTo = safeRedirect(formData.get("redirectTo"), "/");
 
@@ -58,6 +60,13 @@ export const action: ActionFunction = async ({ request }) => {
     );
   }
 
+  if (typeof username !== "string") {
+    return json<ActionData>(
+      { errors: { userName: "Name is required" } },
+      { status: 400 }
+    );
+  }
+
   if (password.length < 4) {
     return json<ActionData>(
       { errors: { password: "Password is too short" } },
@@ -73,7 +82,7 @@ export const action: ActionFunction = async ({ request }) => {
     );
   }
 
-  const user = await createUser(name, email, password);
+  const user = await createUser({ name, username, email, password });
 
   return createUserSession({
     request,
@@ -89,11 +98,11 @@ export const meta: MetaFunction = () => {
   };
 };
 
-export default function Join() {
+export default function Signup() {
   const [searchParams] = useSearchParams();
-  const redirectTo = searchParams.get("redirectTo") ?? undefined;
   const actionData = useActionData() as ActionData;
   const nameRef = useRef<HTMLInputElement>(null);
+  const userNameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
@@ -110,6 +119,27 @@ export default function Join() {
       <div className="login">
         <Form method="post" className="login__form">
           <div className="login__name">
+            <label htmlFor="username" className="login__label">
+              UserName
+            </label>
+            <input
+              ref={userNameRef}
+              id="username"
+              required
+              autoFocus={true}
+              name="username"
+              type="username"
+              aria-describedby="name-error"
+              className="login__input"
+            />
+            {actionData?.errors?.userName && (
+              <div id="email-error" className="login__errorLabel">
+                {actionData.errors.userName}
+              </div>
+            )}
+          </div>
+
+          <div className="login__name">
             <label htmlFor="name" className="login__label">
               Name
             </label>
@@ -117,7 +147,6 @@ export default function Join() {
               ref={nameRef}
               id="name"
               required
-              autoFocus={true}
               name="name"
               type="name"
               autoComplete="name"
