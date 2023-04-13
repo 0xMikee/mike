@@ -1,14 +1,13 @@
 import React from "react";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import { Form, useSubmit } from "@remix-run/react";
-import { SymbolsIconSVG } from "~/components/IconSVG";
 
 export const LogoutConfirm = () => {
   const submit = useSubmit();
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>
-        <button className="Button violet">Log out</button>
+        <button className="button button__logout">Log out</button>
       </AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Overlay className="dialog__overlay" />
@@ -21,7 +20,7 @@ export const LogoutConfirm = () => {
           </AlertDialog.Description>
           <div className="dialog__buttons">
             <AlertDialog.Cancel asChild>
-              <button className="Button mauve">Cancel</button>
+              <button className="button button__cancel">Cancel</button>
             </AlertDialog.Cancel>
             <AlertDialog.Action asChild>
               <Form
@@ -29,7 +28,7 @@ export const LogoutConfirm = () => {
                 method="post"
                 onClick={(e) => submit(e.currentTarget)}
               >
-                <button type="submit" className="userPage__logout">
+                <button type="submit" className="button button__confirm">
                   yes
                 </button>
               </Form>

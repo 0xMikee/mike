@@ -1,0 +1,13 @@
+.button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: var(--color-text);
+  font-size: initial;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 12px;
+}
+.button__confirm {
+  border: 1px solid green;
+}

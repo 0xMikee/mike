@@ -1,6 +1,6 @@
 import { Link, Form } from "@remix-run/react";
 
-import { useOptionalUser } from "~/utils";
+import { useOptionalUser } from "~/utils/misc";
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { requireUser } from "~/session.server";

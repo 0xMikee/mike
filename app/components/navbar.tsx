@@ -9,7 +9,7 @@ import {
   links as hamburgerStyles,
 } from "~/components/hamburgerMenu";
 import type { ReactNode } from "react";
-import { useOptionalAdminUser, useOptionalUser } from "~/utils";
+import { useOptionalAdminUser, useOptionalUser } from "~/utils/misc";
 import { LogoutConfirm } from "./logoutConfirm";
 
 export function links() {

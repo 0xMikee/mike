@@ -6,7 +6,7 @@ import loginStyles from "../styles/css/6_routes/login.css";
 
 import { createUserSession, getUserId } from "~/session.server";
 import { verifyLogin } from "~/models/user.server";
-import { safeRedirect, validateEmail } from "~/utils";
+import { safeRedirect, validateEmail } from "~/utils/misc";
 import { useRef } from "react";
 
 export const links = () => {

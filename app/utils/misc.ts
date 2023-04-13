@@ -5,13 +5,6 @@ import type { User } from "~/models/user.server";
 
 const DEFAULT_REDIRECT = "/";
 
-/**
- * This should be used any time the redirect path is user-provided
- * (Like the query string on our login/signup pages). This avoids
- * open-redirect vulnerabilities.
- * @param {string} to The redirect destination
- * @param {string} defaultRedirect The redirect to use if the to is unsafe.
- */
 export function safeRedirect(
   to: FormDataEntryValue | string | null | undefined,
   defaultRedirect: string = DEFAULT_REDIRECT
@@ -27,12 +20,6 @@ export function safeRedirect(
   return to;
 }
 
-/**
- * This base hook is used in other hooks to quickly search for specific data
- * across all loader data using useMatches.
- * @param {string} id The route id
- * @returns {JSON|undefined} The router data or undefined if not found
- */
 export function useMatchesData(
   id: string
 ): Record<string, unknown> | undefined {
@@ -75,4 +62,18 @@ export function useUser(): User {
 
 export function validateEmail(email: unknown): email is string {
   return typeof email === "string" && email.length > 3 && email.includes("@");
+}
+
+export function getImgSrc(imageId: string) {
+  return `/images/${imageId}`
+}
+
+export function getUserImgSrc(imageId?: string | null) {
+  return imageId ? `/images/${imageId}` : `/images/user.png`
+}
+
+export function typedBoolean<T>(
+  value: T,
+): value is Exclude<T, false | null | undefined | '' | 0> {
+  return Boolean(value)
 }

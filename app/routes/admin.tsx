@@ -1,8 +1,9 @@
-import {useUser, useOptionalAdminUser} from "~/utils";
+import {useUser, useOptionalAdminUser} from "~/utils/misc";
 import type { LoaderFunction} from "@remix-run/node";
 import {json} from "@remix-run/node";
 import {requireAdminUser} from "~/session.server";
 import styles from "../styles/css/userPage.css"
+import { classNames } from "~/utils/classNames";
 
 export const links = () => {
     return [{rel: "stylesheet", href: styles}]
@@ -20,7 +21,7 @@ const UserPage = () => {
   return (
     <div className="content">
       <header className="userPage__header">
-        <h1>User</h1>
+        <h1 className={classNames("userPage__role", "userPage__role--user")}>User</h1>
         {isAdmin && <div>Admin</div>}
         <div>
           <p>{user.email}</p>

@@ -9,7 +9,7 @@ import * as React from "react";
 import loginStyles from "~/styles/css/6_routes/login.css";
 import { getUserId, createUserSession } from "~/session.server";
 import { createUser, getUserByEmail } from "~/models/user.server";
-import { safeRedirect, validateEmail } from "~/utils";
+import { safeRedirect, validateEmail } from "~/utils/misc";
 import { useEffect, useRef } from "react";
 
 export const links = () => {
