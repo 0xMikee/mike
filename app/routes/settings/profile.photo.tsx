@@ -155,7 +155,7 @@ export default function PhotoChooserModal() {
           >
             <img
               src={newImageSrc ?? getUserImgSrc(data.user.imageId)}
-              className="h-64 w-64 rounded-full"
+              className="navbar__photo"
               alt={data.user.name ?? data.user.username}
             />
             {fields.photoFile.errorUI}

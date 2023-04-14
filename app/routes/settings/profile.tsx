@@ -41,7 +41,7 @@ export default function Profile() {
             <img
               src={getUserImgSrc(data.user.imageId)}
               alt={data.user.username}
-              className="h-full w-full rounded-full object-cover"
+              className="navbar__photo"
             />
             <Link
               to="photo"

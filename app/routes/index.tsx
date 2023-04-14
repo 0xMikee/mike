@@ -16,11 +16,6 @@ export default function Index() {
       <div>Username: {user?.username}</div>
       <div>Name: {user?.name}</div>
       <div>Id: {user?.id}</div>
-      <img
-        src={getUserImgSrc(user?.imageId)}
-        alt={user?.username}
-        className="h-full w-full rounded-full object-cover"
-      />
     </div>
   );
 }
