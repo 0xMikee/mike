@@ -3,7 +3,7 @@ import { NavLink } from "~/components/navbar";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Form, Link } from "@remix-run/react";
 import styles from "~/styles/css/5_components/userMenu.css";
-import { useOptionalAdminUser, useOptionalUser } from "~/utils/misc";
+import { useOptionalAdminUser } from "~/utils/misc";
 import { LogoutConfirm } from "~/components/logoutConfirm";
 
 export function links() {
@@ -12,42 +12,34 @@ export function links() {
 
 export const UserMenu = () => {
   const isAdmin = useOptionalAdminUser();
-  const user = useOptionalUser();
 
   return (
     <>
-      {user && (
-        <DropdownMenu.Root>
-          <DropdownMenu.Trigger className={"userMenu"}>
-            <SymbolsIconSVG
-              id="hamburger"
-              extendedClass={"hamburgerIcon"}
-              enabled
-            />
-          </DropdownMenu.Trigger>
+      <DropdownMenu.Root>
+        <DropdownMenu.Trigger className={"userMenu"}>
+          <SymbolsIconSVG
+            id="hamburger"
+            extendedClass={"hamburgerIcon"}
+            enabled
+          />
+        </DropdownMenu.Trigger>
 
-          <DropdownMenu.Portal>
-            <DropdownMenu.Content
-              className="navbar__userMenu"
-              sideOffset={10}
-            >
-              <div className="navbar__userLinks">
-                <DropdownMenu.Item asChild>
-                  {isAdmin &&
-                    <Link to={"/admin"}>Admin</Link>
-                  }
-                </DropdownMenu.Item>
-                <DropdownMenu.Item asChild>
-                  <Link to={"/settings/profile"}>Profile</Link>
-                </DropdownMenu.Item>
-                <DropdownMenu.Item asChild>
-                  <LogoutConfirm />
-                </DropdownMenu.Item>
-              </div>
-            </DropdownMenu.Content>
-          </DropdownMenu.Portal>
-        </DropdownMenu.Root>
-      )}
+        <DropdownMenu.Portal>
+          <DropdownMenu.Content className="navbar__userMenu" sideOffset={10}>
+            <div className="navbar__userLinks">
+              <DropdownMenu.Item asChild>
+                {isAdmin && <Link to={"/admin"}>Admin</Link>}
+              </DropdownMenu.Item>
+              <DropdownMenu.Item asChild>
+                <Link to={"/settings/profile"}>Profile</Link>
+              </DropdownMenu.Item>
+              <DropdownMenu.Item asChild>
+                <LogoutConfirm />
+              </DropdownMenu.Item>
+            </div>
+          </DropdownMenu.Content>
+        </DropdownMenu.Portal>
+      </DropdownMenu.Root>
     </>
   );
 };

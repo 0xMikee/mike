@@ -1,4 +1,4 @@
-import { type Password, type User } from "@prisma/client";
+import type { Password, User } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { Authenticator } from "remix-auth";
 import { FormStrategy } from "remix-auth-form";
@@ -9,7 +9,7 @@ import { sessionStorage } from "./session.server";
 export type { User };
 
 export const authenticator = new Authenticator<string>(sessionStorage, {
-  sessionKey: "token"
+  sessionKey: "token",
 });
 
 authenticator.use(
@@ -36,11 +36,11 @@ authenticator.use(
 export async function requireUserId(request: Request) {
   const requestUrl = new URL(request.url);
   const loginParams = new URLSearchParams([
-    ["redirectTo", `${requestUrl.pathname}${requestUrl.search}`]
+    ["redirectTo", `${requestUrl.pathname}${requestUrl.search}`],
   ]);
   const failureRedirect = `/login?${loginParams}`;
   const userId = await authenticator.isAuthenticated(request, {
-    failureRedirect
+    failureRedirect,
   });
   return userId;
 }
@@ -53,6 +53,10 @@ export async function getUserByEmail(email: User["email"]) {
   return prisma.user.findUnique({ where: { email } });
 }
 
+export async function getUserByUserName(username: User["username"]) {
+  return prisma.user.findUnique({ where: { username } });
+}
+
 export async function getUserId(request: Request) {
   return authenticator.isAuthenticated(request);
 }
@@ -61,12 +65,12 @@ export async function createUser({
   email,
   username,
   password,
-  name
+  name,
 }: {
-  email: User["email"]
-  username: User["username"]
-  name: User["name"]
-  password: string
+  email: User["email"];
+  username: User["username"];
+  name: User["name"];
+  password: string;
 }) {
   const hashedPassword = await getPasswordHash(password);
 
@@ -77,10 +81,10 @@ export async function createUser({
       name,
       password: {
         create: {
-          hash: hashedPassword
-        }
-      }
-    }
+          hash: hashedPassword,
+        },
+      },
+    },
   });
 }
 
@@ -95,14 +99,17 @@ export async function verifyLogin(
 ) {
   const userWithPassword = await prisma.user.findUnique({
     where: { username },
-    select: { id: true, password: { select: { hash: true } } }
+    select: { id: true, password: { select: { hash: true } } },
   });
 
   if (!userWithPassword || !userWithPassword.password) {
     return null;
   }
 
-  const isValid = await bcrypt.compare(password, userWithPassword.password.hash);
+  const isValid = await bcrypt.compare(
+    password,
+    userWithPassword.password.hash
+  );
 
   if (!isValid) {
     return null;

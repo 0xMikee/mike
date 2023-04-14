@@ -12,6 +12,7 @@ import type { ReactNode } from "react";
 import { useOptionalAdminUser, useOptionalUser } from "~/utils/misc";
 import { LogoutConfirm } from "./logoutConfirm";
 import { UserMenu } from "~/components/userMenu";
+import { ButtonLink } from "~/utils/forms";
 
 export function links() {
   return [
@@ -63,19 +64,19 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <Link prefetch="intent" to="/" className="navbar__logoLink">
-        {!user ? <h2>Log in</h2> : <h2>{user.name}</h2>}
+        {!user ? <h2>MikeApp</h2> : <h2>{user.name}</h2>}
       </Link>
       <ul className="navbar__links">
         {isAdmin && <NavLink to={"/admin"}>Admin</NavLink>}
         {user && (
           <>
-            <NavLink to={"/settings/profile"}>Notes</NavLink>
+            <NavLink to={"/settings/profile"}>Profile</NavLink>
             <LogoutConfirm />
           </>
         )}
       </ul>
       <div className="navbar__settings">
-        <UserMenu />
+        {user ? <UserMenu /> : null}
         <HamburgerMenu />
         <DarkModeToggle />
       </div>

@@ -11,7 +11,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function Index() {
   const user = useOptionalUser();
   return (
-    <div className="content">
+    <div className="index">
       <div>Email: {user?.email}</div>
       <div>Username: {user?.username}</div>
       <div>Name: {user?.name}</div>

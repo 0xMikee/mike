@@ -33,9 +33,7 @@ export const HamburgerMenu = () => {
             >
               <div className="navbar__mobileLinks">
                 <DropdownMenu.Item asChild>
-                  {isAdmin &&
-                    <Link to={"/admin"}>Admin</Link>
-                  }
+                  {isAdmin && <Link to={"/admin"}>Admin</Link>}
                 </DropdownMenu.Item>
                 <DropdownMenu.Item asChild>
                   <Link to={"/notes"}>Notes</Link>

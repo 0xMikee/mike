@@ -2,6 +2,7 @@ import { useMatches } from "@remix-run/react";
 import { useMemo } from "react";
 
 import type { User } from "~/utils/auth.server";
+import { ad } from "vitest/dist/types-94cfe4b4";
 
 const DEFAULT_REDIRECT = "/";
 
@@ -18,6 +19,20 @@ export function safeRedirect(
   }
 
   return to;
+}
+
+export function getErrorMessage(error: unknown) {
+  if (typeof error === "string") return error;
+  if (
+    error &&
+    typeof error === "object" &&
+    "message" in error &&
+    typeof error.message === "string"
+  ) {
+    return error.message;
+  }
+  console.error("Unable to get error message for error", error);
+  return "Unknown Error";
 }
 
 export function useMatchesData(
@@ -46,7 +61,7 @@ export function useOptionalUser(): User | undefined {
 export function useOptionalAdminUser() {
   const user = useOptionalUser();
   if (!user) return null;
-  if (user.email !== "mike@gmail.com") return null;
+  if (user.email !== ENV.ADMIN_EMAIL) return null;
   return user;
 }
 
@@ -65,15 +80,15 @@ export function validateEmail(email: unknown): email is string {
 }
 
 export function getImgSrc(imageId: string) {
-  return `/images/${imageId}`
+  return `/images/${imageId}`;
 }
 
 export function getUserImgSrc(imageId?: string | null) {
-  return imageId ? `/images/${imageId}` : `/images/user.png`
+  return imageId ? `/images/${imageId}` : `/images/user.png`;
 }
 
 export function typedBoolean<T>(
-  value: T,
-): value is Exclude<T, false | null | undefined | '' | 0> {
-  return Boolean(value)
+  value: T
+): value is Exclude<T, false | null | undefined | "" | 0> {
+  return Boolean(value);
 }
