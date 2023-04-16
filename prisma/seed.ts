@@ -11,6 +11,11 @@ async function seed() {
 
   console.time("🧹 Cleaned up the database...");
   await prisma.user.deleteMany({ where: {} });
+  console.log("👤 Cleaned up the users...");
+  await prisma.file.deleteMany({ where: {} });
+  console.log("📁 Cleaned up the files...");
+  await prisma.image.deleteMany({ where: {} });
+  console.log("🖼️Cleaned up the images...");
   console.timeEnd("🧹 Cleaned up the database...");
 
   const totalUsers = 40;
@@ -27,7 +32,9 @@ async function seed() {
         data: {
           ...userData,
           password: {
-            create: createPassword(userData.username),
+            create: {
+              hash: await bcrypt.hash("mikemike", 10),
+            },
           },
           image: {
             create: {
@@ -66,7 +73,7 @@ async function seed() {
 
   await prisma.user.create({
     data: {
-      email: "mike@example.com",
+      email: "mike@mikeapp.cz",
       username: "mike",
       name: "Mike",
       image: {
@@ -75,7 +82,7 @@ async function seed() {
           file: {
             create: {
               blob: await downloadFile(
-                `https://res.cloudinary.com/kentcdodds-com/image/upload/kentcdodds.com/misc/kody.png`
+                `https://i.imgur.com/XfxNR45.jpg`
               ),
             },
           },
@@ -83,7 +90,7 @@ async function seed() {
       },
       password: {
         create: {
-          hash: await bcrypt.hash("mikemikemike", 10),
+          hash: await bcrypt.hash("mikemike", 10),
         },
       },
       admin: {
