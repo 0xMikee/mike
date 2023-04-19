@@ -12,7 +12,6 @@ import type { ReactNode } from "react";
 import { getUserImgSrc, useOptionalAdminUser, useOptionalUser } from "~/utils/misc";
 import { LogoutConfirm } from "./logoutConfirm";
 import { UserMenu } from "~/components/userMenu";
-import { ButtonLink } from "~/utils/forms";
 
 export function links() {
 	return [

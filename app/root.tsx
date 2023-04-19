@@ -27,8 +27,8 @@ export const meta: V2_MetaFunction = ({ data }) => {
 
   return [
     { charset: "utf-8" },
-    { viewport: "width=device-width,initial-scale=1" },
-    { "theme-color": requestInfo.theme === "dark" ? "#0d1117" : "#e1e1e7" },
+    { name: "viewport", content: "width=device-width,initial-scale=1" },
+    { name: "theme-color", content: requestInfo.theme === "dark" ? "#0d1117" : "#e1e1e7" },
   ]
 };
 
