@@ -38,6 +38,7 @@ export default function Profile() {
       <div className="mt-16 flex flex-col gap-12">
         <div className="flex justify-center">
           <div className="relative h-52 w-52">
+            {data.user.imageId}
             <img
               src={getUserImgSrc(data.user.imageId)}
               alt={data.user.username}
