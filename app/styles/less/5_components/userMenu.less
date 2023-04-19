@@ -1,2 +1,28 @@
 .userMenu {
+  display: grid;
+  gap: 5px;
+
+  &__link {
+    color: var(--color-text);
+    outline: none;
+    text-decoration: none;
+  }
+
+  &__settings {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__themeSwitcher,
+  &__logOut {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border: 1px solid #a7a7a7;
+    background: none;
+    cursor: pointer;
+    color: var(--color-text);
+    border-radius: 8px;
+  }
 }

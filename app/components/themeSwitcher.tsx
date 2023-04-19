@@ -11,7 +11,7 @@ export const DarkModeToggle = () => {
 
   return (
     <button
-      className={"themeSwitcher"}
+      className="userMenu__themeSwitcher"
       onClick={() => {
         setTheme((previousTheme) =>
           previousTheme === Theme.DARK ? Theme.LIGHT : Theme.DARK

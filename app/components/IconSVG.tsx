@@ -12,10 +12,6 @@ export interface IconSVGProps {
   extendedClass?: string;
 }
 
-export const LogoIconSVG = (props: IconSVGProps) => {
-  return <IconSVGSelector svg={LogoSVG} {...props} />;
-};
-
 export const SymbolsIconSVG = (props: IconSVGProps) => {
   return <IconSVGSelector svg={SymbolsSVG} {...props} />;
 };

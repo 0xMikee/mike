@@ -1,13 +1,14 @@
 import React from "react";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import { Form, useSubmit } from "@remix-run/react";
+import { SymbolsIconSVG } from "~/components/IconSVG";
 
 export const LogoutConfirm = () => {
   const submit = useSubmit();
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>
-        <button className="button button__logout">Log out</button>
+        <button className="userMenu__logOut"><SymbolsIconSVG id="logout" extendedClass="logOutIcon" enabled /></button>
       </AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Overlay className="dialog__overlay" />

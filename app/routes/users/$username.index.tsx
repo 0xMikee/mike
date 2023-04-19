@@ -1,14 +1,12 @@
 import {
   json,
-  redirect,
   DataFunctionArgs,
-  MetaFunction,
 } from "@remix-run/node";
-import { Form, Link, useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { prisma } from "~/utils/db.server";
-import { Button } from "~/utils/forms";
-import { getUserImgSrc, useOptionalUser } from "~/utils/misc";
+import { getUserImgSrc } from "~/utils/misc";
+import { LogoutConfirm } from "~/components/logoutConfirm";
 
 export async function loader({ params }: DataFunctionArgs) {
   invariant(params.username, "Missing username");
@@ -32,7 +30,7 @@ export default function UsernameIndex() {
   const data = useLoaderData<typeof loader>();
 
   return (
-    <div className="container mx-auto flex flex-col items-center justify-center">
+    <div className="">
       <img
         className="h-52 w-52 rounded-full object-cover"
         alt={data.user.name ?? data.user.username}
@@ -46,9 +44,7 @@ export default function UsernameIndex() {
       >
         ✏️ Create your profile
       </Link>
-      <Form action={"/logout"} method="POST">
-        <Button type="submit">Logout</Button>
-      </Form>
+      <LogoutConfirm/>
     </div>
   );
 }

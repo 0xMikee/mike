@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 16px;
+  padding: 16px;
 }
 .navbar__logoLink {
   color: red;
@@ -15,43 +15,31 @@
   font-size: 20px;
 }
 .navbar__userPhoto {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  border-radius: 33%;
+}
+.navbar__userName {
+  color: var(--color-text);
+  font-size: 17px;
+  font-weight: bold;
+}
+.navbar__userName::selection {
+  color: #1f2937;
+  background: white;
 }
 .navbar__photo {
-  width: 400px;
+  width: 300px;
 }
 .navbar__logoIcon {
   width: 225px;
   height: 32px;
 }
-.navbar__settings {
+.navbar__settingsLink {
   display: flex;
-  gap: 5px;
-}
-.navbar__links {
-  display: flex;
+  justify-content: center;
   align-items: center;
-}
-@media only screen and (max-width: 639px) {
-  .navbar__links {
-    display: none;
-  }
-}
-.navbar__link {
-  list-style: none;
-  padding: 5px 10px;
-  color: var(--color-text);
+  gap: 10px;
   text-decoration: none;
-}
-.navbar__link:hover {
-  background-color: var(--color-secondary);
-  border-radius: 8px;
-}
-.navbar__link--active {
-  color: darkgray;
-}
-.navbar__link--mobile {
-  padding: 4px;
+  outline: none;
 }

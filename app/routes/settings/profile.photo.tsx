@@ -17,7 +17,7 @@ import {
 import { useState } from "react";
 import { z } from "zod";
 import * as deleteImageRoute from "~/utils/delete-image";
-import { authenticator, requireUserId } from "~/utils/auth.server";
+import { authenticator } from "~/utils/auth.server";
 import { prisma } from "~/utils/db.server";
 import {
   Button,
@@ -134,15 +134,16 @@ export default function PhotoChooserModal() {
 
   const deleteProfilePhotoFormId = "delete-profile-photo";
   const dismissModal = () => navigate("..");
+
   return (
     <Dialog.Root open={true}>
-      <Dialog.Portal>
+      <Dialog.Portal className="content">
         <Dialog.Overlay className="fixed inset-0 backdrop-blur-[2px]" />
         <Dialog.Content
           onEscapeKeyDown={dismissModal}
           onInteractOutside={dismissModal}
           onPointerDownOutside={dismissModal}
-          className="fixed top-1/2 left-1/2 w-[90vw] max-w-3xl -translate-x-1/2 -translate-y-1/2 transform rounded-lg bg-night-500 p-12 shadow-lg"
+          className="content"
         >
           <Dialog.Title asChild className="text-center">
             <h2 className="text-h2">Profile photo</h2>

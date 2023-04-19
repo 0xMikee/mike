@@ -1,23 +1,17 @@
 import { Link, useLocation } from "@remix-run/react";
-import {
-	DarkModeToggle,
-	links as themeStyles,
-} from "~/components/themeSwitcher";
+import { links as themeStyles } from "~/components/themeSwitcher";
+import { links as hamburgerStyles, } from "~/components/hamburgerMenu";
+import { links as userMenuStyles, } from "~/components/userMenu";
 import styles from "~/styles/css/5_components/navbar.css";
-import {
-	HamburgerMenu,
-	links as hamburgerStyles,
-} from "~/components/hamburgerMenu";
 import type { ReactNode } from "react";
-import { getUserImgSrc, useOptionalAdminUser, useOptionalUser } from "~/utils/misc";
-import { LogoutConfirm } from "./logoutConfirm";
+import { useOptionalUser } from "~/utils/misc";
 import { UserMenu } from "~/components/userMenu";
-import { ButtonLink } from "~/utils/forms";
 
 export function links() {
 	return [
 		...hamburgerStyles(),
 		...themeStyles(),
+		...userMenuStyles(),
 		{ rel: "stylesheet", href: styles },
 	];
 }
@@ -54,38 +48,19 @@ export function NavLink({
 
 const Navbar = () => {
 	const user = useOptionalUser();
-	const isAdmin = useOptionalAdminUser();
 
 	return (
 		<nav className="navbar">
 			<Link prefetch="intent" to="/" className="navbar__logoLink">
 				{!user ? <h2>MikeApp</h2> : <h2>{user.name}</h2>}
 			</Link>
-			<ul className="navbar__links">
-				{isAdmin && <NavLink to={"/admin"}>Admin</NavLink>}
-				{user && (
-					<>
-						<NavLink to={"/settings/profile"}>Profile</NavLink>
-						<LogoutConfirm />
-					</>
-				)}
-			</ul>
 			<div className="navbar__settings">
-				{user ? (
-					<img
-						src={getUserImgSrc(user?.imageId)}
-						alt={user?.username}
-						className="navbar__userPhoto"
-					/>
-				) : null}
-				<div className="navbar__settings">
-					{user ? <UserMenu /> : null}
-					<HamburgerMenu />
-					<DarkModeToggle />
-				</div>
+				{user && <UserMenu />}
 			</div>
 		</nav>
 	);
 };
 
 export default Navbar;
+
+

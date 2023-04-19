@@ -2,15 +2,10 @@
   width: 225px;
   height: 32px;
 }
-.moonIcon {
-  width: 25px;
-  height: 25px;
-}
-.sunIcon {
-  width: 25px;
-  height: 25px;
-}
-.hamburgerIcon {
+.moonIcon,
+.sunIcon,
+.hamburgerIcon,
+.logOutIcon {
   width: 25px;
   height: 25px;
 }

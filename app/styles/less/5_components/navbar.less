@@ -4,7 +4,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 16px;
+  padding: 16px;
 
   &__logoLink {
     color: red;
@@ -20,13 +20,24 @@
   }
 
   &__userPhoto {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border-radius: 33%;
+  }
+
+  &__userName {
+    color: var(--color-text);
+    font-size: 17px;
+    font-weight: bold;
+
+    &::selection {
+      color: #1f2937;
+      background: white;
+    }
   }
 
   &__photo {
-    width: 400px;
+    width: 300px;
   }
 
   &__logoIcon {
@@ -35,36 +46,15 @@
   }
 
   &__settings {
-    display: flex;
-    gap: 5px;
+
   }
 
-  &__links {
+  &__settingsLink {
     display: flex;
+    justify-content: center;
     align-items: center;
-
-    @media only screen and (max-width: 639px) {
-      display: none;
-    }
-  }
-
-  &__link {
-    list-style: none;
-    padding: 5px 10px;
-    color: var(--color-text);
+    gap: 10px;
     text-decoration: none;
-
-    &:hover {
-      background-color: var(--color-secondary);
-      border-radius: 8px;
-    }
-
-    &--active {
-      color: darkgray;
-    }
-
-    &--mobile {
-      padding: 4px;
-    }
+    outline: none;
   }
 }

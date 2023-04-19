@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { faker } from "@faker-js/faker";
-import { createPassword, createUser, downloadFile } from "./seed-utils";
+import { createUser, downloadFile } from "./seed-utils";
 
 const prisma = new PrismaClient();
 
@@ -28,7 +28,8 @@ async function seed() {
       const userData = createUser({ gender });
       const imageGender = gender === "female" ? "women" : "men";
       const imageNumber = faker.datatype.number({ min: 0, max: 99 });
-      const user = await prisma.user.create({
+
+      return await prisma.user.create({
         data: {
           ...userData,
           password: {
@@ -42,7 +43,7 @@ async function seed() {
               file: {
                 create: {
                   blob: await downloadFile(
-                    `https://randomuser.me/api/portraits/${imageGender}/${imageNumber}.jpg`
+                      `https://randomuser.me/api/portraits/${imageGender}/${imageNumber}.jpg`
                   ),
                 },
               },
@@ -50,7 +51,6 @@ async function seed() {
           },
         },
       });
-      return user;
     })
   );
   console.timeEnd(`👤 Created ${totalUsers} users...`);

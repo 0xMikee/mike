@@ -1,6 +1,6 @@
 import { json, type DataFunctionArgs } from "@remix-run/node";
 import { z } from "zod";
-import { requireUserId } from "~/utils/auth.server";
+import { getUserId } from "~/utils/session.server";
 import { prisma } from "~/utils/db.server";
 import { preprocessFormData } from "~/utils/forms";
 
@@ -11,7 +11,7 @@ const DeleteFormSchema = z.object({
 });
 
 export async function action({ request }: DataFunctionArgs) {
-  const userId = await requireUserId(request);
+  const userId = await getUserId(request);
   const formData = await request.formData();
   const result = DeleteFormSchema.safeParse(
     preprocessFormData(formData, DeleteFormSchema)
