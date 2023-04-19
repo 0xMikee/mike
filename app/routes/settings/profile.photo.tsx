@@ -16,7 +16,7 @@ import {
 } from "@remix-run/react";
 import { useState } from "react";
 import { z } from "zod";
-import * as deleteImageRoute from "~/utils/delete-image";
+import * as deleteImageRoute from "~/routes/resources/delete-image";
 import { authenticator } from "~/utils/auth.server";
 import { prisma } from "~/utils/db.server";
 import {

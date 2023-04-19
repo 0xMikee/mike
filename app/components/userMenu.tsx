@@ -29,7 +29,7 @@ export const UserMenu = () => {
             />
           </Link>
         </DropdownMenu.Trigger>
-        <DropdownMenu.Portal>
+        <DropdownMenu.Portal className="userMenu">
           <DropdownMenu.Content
               sideOffset={8}
               align="start"
