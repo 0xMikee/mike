@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react";
-import LogoSVG from "../../public/images/svg/logo.svg";
+import React from "react";
+import type { ReactNode } from "react"
 import SymbolsSVG from "../../public/images/svg/symbols.svg";
 import { IconSVGSelector } from "~/components/IconSVGSelector";
 

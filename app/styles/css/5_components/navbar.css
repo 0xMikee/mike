@@ -3,6 +3,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px;
+  margin: 0 auto;
+  max-width: 1770px;
 }
 .navbar__logoLink {
   color: red;

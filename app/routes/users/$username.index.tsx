@@ -6,7 +6,11 @@ import { Link, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { prisma } from "~/utils/db.server";
 import { getUserImgSrc } from "~/utils/misc";
-import { LogoutConfirm } from "~/components/logoutConfirm";
+import styles from "~/styles/css/6_routes/userPage.css";
+
+export const links = () => {
+    return [{rel: "stylesheet", href: styles}]
+}
 
 export async function loader({ params }: DataFunctionArgs) {
   invariant(params.username, "Missing username");
@@ -30,21 +34,20 @@ export default function UsernameIndex() {
   const data = useLoaderData<typeof loader>();
 
   return (
-    <div className="">
+    <div className="userPage">
       <img
-        className="h-52 w-52 rounded-full object-cover"
+        className="userPage__photo"
         alt={data.user.name ?? data.user.username}
         src={getUserImgSrc(data.user.imageId)}
       />
-      <h1 className="text-h2">{data.user.name ?? data.user.username}</h1>
-      <p className="text-night-200">Joined {data.userJoinedDisplay}</p>
+      <h1 className="userPage__name">{data.user.name ?? data.user.username}</h1>
+      <p className="userPage__joinDate">Joined {data.userJoinedDisplay}</p>
       <Link
         to="/settings/profile"
-        className="rounded-full border border-night-400 py-5 px-10"
+        className="userPage__editLink"
       >
-        ✏️ Create your profile
+        ✏️ Edit profile
       </Link>
-      <LogoutConfirm/>
     </div>
   );
 }

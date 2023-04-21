@@ -1,5 +1,5 @@
 import React from "react";
-import { IconSVGProps } from "~/components/IconSVG";
+import type { IconSVGProps } from "~/components/IconSVG";
 
 interface IconSVGSelectorProps extends IconSVGProps {
   svg: any;

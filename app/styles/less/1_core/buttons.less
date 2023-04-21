@@ -1,18 +1,35 @@
 .button {
+  display: grid;
+  align-items: center;
+  text-align: center;
   border: none;
   outline: none;
   background-color: transparent;
   color: var(--color-text);
-  font-size: initial;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
   cursor: pointer;
-  padding: 5px;
   border-radius: 12px;
+
+  &:hover {
+    opacity: 0.7;
+  }
 
   &__logout {
 
   }
 
+  &__confirm,
+  &__cancel {
+    display: grid;
+    width: 50%;
+    padding: 10px;
+    background-color: var(--color-primary);
+  }
+
   &__confirm {
-    border: 1px solid green;
+    border: 2px solid var(--color-primary);
+    background-color: transparent;
   }
 }

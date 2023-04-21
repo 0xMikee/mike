@@ -1,4 +1,4 @@
-import { getUserImgSrc, useOptionalUser } from "~/utils/misc";
+import { useOptionalUser } from "~/utils/misc";
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { requireUser } from "~/utils/session.server";

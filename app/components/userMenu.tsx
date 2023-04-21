@@ -1,7 +1,7 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { Form, Link, useSubmit } from "@remix-run/react";
+import { Link } from "@remix-run/react";
 import styles from "~/styles/css/5_components/userMenu.css";
-import { getUserImgSrc, useOptionalAdminUser, useUser } from "~/utils/misc";
+import { getUserImgSrc, useUser } from "~/utils/misc";
 import { LogoutConfirm } from "~/components/logoutConfirm";
 import { DarkModeToggle } from "~/components/themeSwitcher";
 

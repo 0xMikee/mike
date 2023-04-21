@@ -2,7 +2,7 @@ import { useUser, useOptionalAdminUser } from "~/utils/misc";
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { requireAdminUser } from "~/utils/session.server";
-import styles from "../styles/css/userPage.css";
+import styles from "../styles/css/6_routes/userPage.css";
 import { classNames } from "~/utils/classNames";
 
 export const links = () => {

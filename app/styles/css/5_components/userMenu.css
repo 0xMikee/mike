@@ -1,15 +1,26 @@
 .userMenu {
   display: grid;
-  gap: 5px;
+  gap: 10px;
+  background-color: var(--color-secondary);
+  border-radius: 16px;
 }
 .userMenu__link {
   color: var(--color-text);
   outline: none;
   text-decoration: none;
+  padding: 10px 20px;
+}
+.userMenu__link:hover {
+  background-color: var(--color-secondary-2);
+}
+.userMenu__link:hover:first-child {
+  border-radius: 16px 16px 0 0;
 }
 .userMenu__settings {
   display: flex;
   gap: 10px;
+  justify-content: center;
+  padding: 0 0 10px;
 }
 .userMenu__themeSwitcher,
 .userMenu__logOut {
