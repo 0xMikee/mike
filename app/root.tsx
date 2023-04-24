@@ -6,13 +6,14 @@ import type {
 } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
+  isRouteErrorResponse,
   Links,
   LiveReload,
   Meta,
   Outlet,
   Scripts,
   useCatch,
-  useLoaderData,
+  useLoaderData, useRouteError,
 } from "@remix-run/react";
 import { getUser } from "~/utils/session.server";
 import Navbar from "~/components/navbar";
@@ -21,6 +22,7 @@ import type { ReactNode } from "react";
 import { getThemeSession } from "./utils/theme.server";
 import { styleSheet } from "~/utils/styleSheet";
 import { getEnv } from "~/utils/env.server";
+import { GeneralErrorBoundary } from "~/components/error-boundary";
 
 export const meta: V2_MetaFunction = ({ data }) => {
   const requestInfo = data?.session;
@@ -55,6 +57,10 @@ async function loader({ request }: DataFunctionArgs) {
   };
 
   const headers: HeadersInit = new Headers();
+
+  if (!user && !data) {
+    throw new Response("not found", { status: 404 });
+  }
 
   return json(data, { headers });
 }
@@ -108,36 +114,5 @@ export default function AppWithProviders() {
     <ThemeProvider specifiedTheme={data.session.theme}>
       <App />
     </ThemeProvider>
-  );
-}
-
-export function CatchBoundary() {
-  let caught = useCatch();
-
-  return (
-    <App title={`${caught.status} ${caught.statusText}`}>
-      <div className="errorBoundary">
-        <div className="errorBoundary__wrapper">
-          <h2 className="errorBoundary__header">Oops!</h2>
-          <pre className="errorBoundary__message">
-            {caught.status} {caught.statusText}
-          </pre>
-        </div>
-      </div>
-    </App>
-  );
-}
-
-export function ErrorBoundary({ error }: { error: Error }) {
-  console.error(error);
-  return (
-    <App title="Error!">
-      <div className="errorBoundary">
-        <div className="errorBoundary__wrapper">
-          <h2 className="errorBoundary__header">Error</h2>
-          <pre className="errorBoundary__message">{error.message}</pre>
-        </div>
-      </div>
-    </App>
   );
 }

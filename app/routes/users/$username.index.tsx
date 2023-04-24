@@ -2,11 +2,12 @@ import {
   json,
   DataFunctionArgs,
 } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { isRouteErrorResponse, Link, useLoaderData, useRouteError } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { prisma } from "~/utils/db.server";
 import { getUserImgSrc } from "~/utils/misc";
 import styles from "~/styles/css/6_routes/userPage.css";
+import { GeneralErrorBoundary } from "~/components/error-boundary";
 
 export const links = () => {
     return [{rel: "stylesheet", href: styles}]
@@ -50,4 +51,16 @@ export default function UsernameIndex() {
       </Link>
     </div>
   );
+}
+
+export function ErrorBoundary() {
+    return (
+        <GeneralErrorBoundary
+            statusHandlers={{
+                404: ({ params }) => (
+                    <p>No user with the username "{params.username}" exists</p>
+                ),
+            }}
+        />
+    )
 }
