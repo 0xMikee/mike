@@ -1,8 +1,6 @@
-import {
-  json,
-  DataFunctionArgs,
-} from "@remix-run/node";
-import { isRouteErrorResponse, Link, useLoaderData, useRouteError } from "@remix-run/react";
+import { json } from "@remix-run/node";
+import type { DataFunctionArgs } from "@remix-run/node";
+import { Link, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { prisma } from "~/utils/db.server";
 import { getUserImgSrc } from "~/utils/misc";

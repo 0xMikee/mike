@@ -1,11 +1,11 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import {
-  DataFunctionArgs,
   json,
   redirect,
   unstable_createMemoryUploadHandler,
   unstable_parseMultipartFormData,
 } from "@remix-run/node";
+import type { DataFunctionArgs } from "@remix-run/node";
 import {
   Form,
   Link,

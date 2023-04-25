@@ -1,4 +1,5 @@
-import { json, DataFunctionArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import type { DataFunctionArgs } from "@remix-run/node";
 import { Link, Outlet, useLoaderData } from "@remix-run/react";
 import { authenticator } from "~/utils/auth.server";
 import { prisma } from "~/utils/db.server";

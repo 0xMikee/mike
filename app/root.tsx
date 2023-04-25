@@ -6,14 +6,12 @@ import type {
 } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
-  isRouteErrorResponse,
   Links,
   LiveReload,
   Meta,
   Outlet,
   Scripts,
-  useCatch,
-  useLoaderData, useRouteError,
+  useLoaderData,
 } from "@remix-run/react";
 import { getUser } from "~/utils/session.server";
 import Navbar from "~/components/navbar";
@@ -22,7 +20,6 @@ import type { ReactNode } from "react";
 import { getThemeSession } from "./utils/theme.server";
 import { styleSheet } from "~/utils/styleSheet";
 import { getEnv } from "~/utils/env.server";
-import { GeneralErrorBoundary } from "~/components/error-boundary";
 
 export const meta: V2_MetaFunction = ({ data }) => {
   const requestInfo = data?.session;
@@ -31,7 +28,7 @@ export const meta: V2_MetaFunction = ({ data }) => {
     { charset: "utf-8" },
     { viewport: "width=device-width,initial-scale=1" },
     { "theme-color": requestInfo.theme === "dark" ? "#0d1117" : "#e1e1e7" },
-  ]
+  ];
 };
 
 export const links: LinksFunction = () => {
@@ -97,9 +94,9 @@ const App = ({
           </div>
         </main>
         <script
-            dangerouslySetInnerHTML={{
-              __html: `window.ENV = ${JSON.stringify(data.ENV)}`,
-            }}
+          dangerouslySetInnerHTML={{
+            __html: `window.ENV = ${JSON.stringify(data.ENV)}`,
+          }}
         />
         {process.env.NODE_ENV === "development" ? <LiveReload /> : null}
         <Scripts />

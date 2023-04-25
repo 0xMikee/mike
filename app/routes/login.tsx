@@ -1,5 +1,6 @@
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
-import { json, V2_MetaFunction, redirect } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
+import type { V2_MetaFunction } from "@remix-run/node";
 import { Form, Link, useActionData, useSearchParams } from "@remix-run/react";
 import * as React from "react";
 import loginStyles from "../styles/css/6_routes/login.css";
@@ -77,7 +78,6 @@ export const meta: V2_MetaFunction = () => {
 
 export default function LoginPage() {
   const [searchParams] = useSearchParams();
-  const redirectTo = searchParams.get("redirectTo") || "/";
   const actionData = useActionData<typeof action>();
   const userNameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
