@@ -17,17 +17,17 @@ import { getUser } from "~/utils/session.server";
 import Navbar from "~/components/navbar";
 import { ThemeProvider, useTheme } from "~/utils/themeProvider";
 import type { ReactNode } from "react";
-import { getThemeSession } from "./utils/theme.server";
 import { styleSheet } from "~/utils/styleSheet";
 import { getEnv } from "~/utils/env.server";
+import { getThemeSession } from "~/utils/theme.server";
 
 export const meta: V2_MetaFunction = ({ data }) => {
   const requestInfo = data?.session;
 
   return [
     { charset: "utf-8" },
-    { viewport: "width=device-width,initial-scale=1" },
-    { "theme-color": requestInfo.theme === "dark" ? "#0d1117" : "#e1e1e7" },
+    { name: "viewport", content: "width=device-width,initial-scale=1" },
+    { name: "theme-color", content: requestInfo.theme === "dark" ? "#0d1117" : "#e1e1e7" },
   ];
 };
 
@@ -41,7 +41,7 @@ export type LoaderData = {
   data: SerializeFrom<typeof loader>;
 };
 
-async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: DataFunctionArgs) {
   const themeSession = await getThemeSession(request);
   const user = await getUser(request);
 
@@ -61,12 +61,6 @@ async function loader({ request }: DataFunctionArgs) {
 
   return json(data, { headers });
 }
-
-async function loaderImpl({ request, ...rest }: DataFunctionArgs) {
-  return await loader({ request, ...rest });
-}
-
-export { loaderImpl as loader };
 
 const App = ({
   children,

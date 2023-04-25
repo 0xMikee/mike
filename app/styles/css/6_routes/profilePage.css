@@ -1,0 +1,13 @@
+.profilePage {
+  display: grid;
+  gap: 15px;
+  justify-items: center;
+}
+.profilePage__nav {
+  justify-self: start;
+}
+.profilePage__image {
+  width: 203px;
+  height: 203px;
+  border-radius: 33%;
+}

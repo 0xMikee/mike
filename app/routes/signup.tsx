@@ -12,7 +12,7 @@ import {
   getUserByEmail,
   getUserByUserName,
 } from "~/utils/auth.server";
-import { getUserId, createUserSession } from "~/utils/session.server";
+import { createUserSession, getUserId } from "~/utils/session.server";
 import { safeRedirect, validateEmail } from "~/utils/misc";
 import { useEffect, useRef } from "react";
 
@@ -20,7 +20,7 @@ export const links = () => {
   return [{ rel: "stylesheet", href: loginStyles }];
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({request}) => {
   const userId = await getUserId(request);
   if (userId) return redirect("/");
   return json({});
@@ -103,7 +103,10 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export const meta: V2_MetaFunction = () => {
-  return [{ title: "Sign Up | MikeApp" }]
+  return [
+    { title: "Sign Up | MikeApp" },
+    { name: "viewport", content: "width=device-width,initial-scale=1" },
+  ];
 };
 
 export default function Signup() {

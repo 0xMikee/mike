@@ -4,7 +4,8 @@
   justify-items: center;
 }
 .userPage__photo {
-  width: 220px;
+  width: 203px;
+  height: 203px;
   border-radius: 33%;
 }
 .userPage__editLink {

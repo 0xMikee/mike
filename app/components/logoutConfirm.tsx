@@ -13,7 +13,9 @@ export const LogoutConfirm = () => {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>
-        <button className="userMenu__logOut"><SymbolsIconSVG id="logout" extendedClass="logOutIcon" enabled /></button>
+        <button className="userMenu__logOut">
+          <SymbolsIconSVG id="logout" extendedClass="logOutIcon" enabled />
+        </button>
       </AlertDialog.Trigger>
       <AlertDialog.Portal className="logoutConfirm">
         <AlertDialog.Overlay className="dialog__overlay" />

@@ -8,8 +8,8 @@ import styles from "~/styles/css/6_routes/userPage.css";
 import { GeneralErrorBoundary } from "~/components/error-boundary";
 
 export const links = () => {
-    return [{rel: "stylesheet", href: styles}]
-}
+  return [{ rel: "stylesheet", href: styles }];
+};
 
 export async function loader({ params }: DataFunctionArgs) {
   invariant(params.username, "Missing username");
@@ -41,24 +41,21 @@ export default function UsernameIndex() {
       />
       <h1 className="userPage__name">{data.user.name ?? data.user.username}</h1>
       <p className="userPage__joinDate">Joined {data.userJoinedDisplay}</p>
-      <Link
-        to="/settings/profile"
-        className="userPage__editLink"
-      >
-        ✏️ Edit profile
+      <Link to="/settings/profile" className="userPage__editLink">
+        Edit profile
       </Link>
     </div>
   );
 }
 
 export function ErrorBoundary() {
-    return (
-        <GeneralErrorBoundary
-            statusHandlers={{
-                404: ({ params }) => (
-                    <p>No user with the username "{params.username}" exists</p>
-                ),
-            }}
-        />
-    )
+  return (
+    <GeneralErrorBoundary
+      statusHandlers={{
+        404: ({ params }) => (
+          <p>No user with the username "{params.username}" exists</p>
+        ),
+      }}
+    />
+  );
 }

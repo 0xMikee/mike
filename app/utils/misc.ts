@@ -1,8 +1,6 @@
 import { useMatches } from "@remix-run/react";
 import { useMemo } from "react";
-
 import type { User } from "~/utils/auth.server";
-import { ad } from "vitest/dist/types-94cfe4b4";
 
 const DEFAULT_REDIRECT = "/";
 
