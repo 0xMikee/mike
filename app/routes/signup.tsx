@@ -206,23 +206,19 @@ export default function Signup() {
             </div>
           )}
         </div>
-
+        <div className="login__buttons">
         <button type="submit" className="login__button">
           Create Account
         </button>
-        <div className="">
-          <div className="">
-            Already have an account?{" "}
-            <Link
-              className=""
+          <Link
+              className="login__button"
               to={{
                 pathname: "/login",
                 search: searchParams.toString(),
               }}
-            >
-              Log in
-            </Link>
-          </div>
+          >
+            Log in
+          </Link>
         </div>
       </Form>
     </div>

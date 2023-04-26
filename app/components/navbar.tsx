@@ -1,5 +1,5 @@
 import { Link, useLocation } from "@remix-run/react";
-import { links as themeStyles } from "~/components/themeSwitcher";
+import { DarkModeToggle, links as themeStyles } from "~/components/themeSwitcher";
 import { links as hamburgerStyles, } from "~/components/hamburgerMenu";
 import { links as userMenuStyles, } from "~/components/userMenu";
 import styles from "~/styles/css/5_components/navbar.css";
@@ -47,15 +47,16 @@ export function NavLink({
 }
 
 const Navbar = () => {
-	const user = useOptionalUser();
+	const user = useOptionalUser()
+	const logo = "<Logo/>"
 
 	return (
 		<nav className="navbar">
 			<Link prefetch="intent" to="/" className="navbar__logoLink">
-				{!user ? <h2>MikeApp</h2> : <h2>{user.name}</h2>}
+				<code>{logo}</code>
 			</Link>
 			<div className="navbar__settings">
-				{user && <UserMenu />}
+				{user ? <UserMenu /> : <DarkModeToggle />}
 			</div>
 		</nav>
 	);

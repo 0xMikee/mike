@@ -48,18 +48,11 @@ export async function action({ request }: ActionArgs) {
     );
   }
 
-  if (password.length < 8) {
-    return json(
-      { errors: { username: null, password: "Password is too short" } },
-      { status: 400 }
-    );
-  }
-
   const user = await verifyLogin(username, password);
 
   if (!user) {
     return json(
-      { errors: { username: "Invalid username or password", password: null } },
+     { errors: { username: null, password: "Invalid username or password" } },
       { status: 400 }
     );
   }
@@ -110,11 +103,6 @@ export default function LoginPage() {
             aria-describedby="userName-error"
             className="login__input"
           />
-          {actionData?.errors?.username && (
-            <div className="login__errorLabel" id="userName-error">
-              {actionData.errors.username}
-            </div>
-          )}
         </div>
 
         <div className="login__password">
@@ -130,7 +118,9 @@ export default function LoginPage() {
             className="login__input"
           />
           {actionData?.errors?.password && (
-            <div className="">{actionData.errors.password}</div>
+            <div className="login__errorLabel" id="password-error">
+              {actionData.errors.password}
+            </div>
           )}
         </div>
         <div className="login__buttons">
@@ -147,18 +137,7 @@ export default function LoginPage() {
           Sign up
         </Link>
         </div>
-        <div className="">
-          <div className="">
-            <input id="remember" name="remember" type="checkbox" className="" />
-            <label htmlFor="remember" className="">
-              Remember me
-            </label>
-          </div>
-          <div className="">
-            Don't have an account?{" "}
 
-          </div>
-        </div>
       </Form>
     </div>
   );

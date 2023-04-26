@@ -2,11 +2,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 120px;
 }
 .login__form {
   display: grid;
-  justify-items: center;
-  gap: 30px;
+  gap: 20px;
 }
 .login__label {
   width: max-content;
@@ -47,7 +47,7 @@
 .login__button {
   width: 50%;
   background: transparent;
-  border: 0.5px solid var(--color-text);
+  border: 0.5px solid #565555;
   color: var(--color-text);
   padding: 5px;
   font-size: 13px;
