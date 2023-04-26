@@ -73,7 +73,10 @@ export async function action({ request }: ActionArgs) {
 }
 
 export const meta: V2_MetaFunction = () => {
-  return [{ title: "Login | MikeApp" }]
+  return [
+    { title: "Login | MikeApp" },
+    { name: "viewport", content: "width=device-width,initial-scale=1" }
+  ]
 };
 
 export default function LoginPage() {
