@@ -18,9 +18,9 @@ export function ErrorList({
   const errorsToRender = errors?.filter(Boolean);
   if (!errorsToRender?.length) return null;
   return (
-    <ul id={id} className="space-y-1">
+    <ul id={id} className="">
       {errorsToRender.map((e) => (
-        <li key={e} className="text-[10px] text-accent-red">
+        <li key={e} className="">
           {e}
         </li>
       ))}
@@ -453,11 +453,10 @@ export function Field({
         aria-errormessage={errorId}
         placeholder=" "
         {...inputProps}
-        className="h-16 w-full rounded-lg border border-night-400 bg-night-700 px-4 pt-4 text-body-xs caret-white outline-none focus:border-accent-purple disabled:bg-night-400"
+        className=""
       />
-      {/* the label comes after the input so we can use the sibling selector in the CSS to give us animated label control in CSS only */}
       <label htmlFor={id} {...labelProps} />
-      <div className="px-4 pt-1 pb-3">
+      <div className="">
         {errorId ? <ErrorList id={errorId} errors={errors} /> : null}
       </div>
     </div>
@@ -486,11 +485,10 @@ export function TextareaField({
         aria-errormessage={errorId}
         placeholder=" "
         {...textareaProps}
-        className="h-48 w-full rounded-lg border border-night-400 bg-night-700 px-4 pt-8 text-body-xs caret-white outline-none focus:border-accent-purple disabled:bg-night-400"
+        className=""
       />
-      {/* the label comes after the input so we can use the sibling selector in the CSS to give us animated label control in CSS only */}
       <label htmlFor={id} {...labelProps} />
-      <div className="px-4 pt-1 pb-3">
+      <div className="">
         {errorId ? <ErrorList id={errorId} errors={errors} /> : null}
       </div>
     </div>
@@ -516,7 +514,7 @@ export function CheckboxField({
   const errorId = errors?.length ? `${id}-error` : undefined;
   return (
     <div className={""}>
-      <div className="flex gap-2">
+      <div className="">
         <Checkbox.Root
           id={id}
           aria-invalid={errorId ? true : undefined}
@@ -524,7 +522,7 @@ export function CheckboxField({
           {...buttonProps}
           type="button"
         >
-          <Checkbox.Indicator className="h-4 w-4">
+          <Checkbox.Indicator className="">
             <svg viewBox="0 0 8 8">
               <path
                 d="M1,4 L3,6 L7,2"
@@ -538,10 +536,10 @@ export function CheckboxField({
         <label
           htmlFor={id}
           {...labelProps}
-          className="text-body-xs text-night-200"
+          className=""
         />
       </div>
-      <div className="px-4 pt-1 pb-3">
+      <div className="">
         {errorId ? <ErrorList id={errorId} errors={errors} /> : null}
       </div>
     </div>

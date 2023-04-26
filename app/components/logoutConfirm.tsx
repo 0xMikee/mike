@@ -37,9 +37,7 @@ export const LogoutConfirm = () => {
                 onClick={(e) => submit(e.currentTarget)}
                 className="button button__confirm"
               >
-                <button type="submit" className="button">
                   yes
-                </button>
               </Form>
             </AlertDialog.Action>
           </div>

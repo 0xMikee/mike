@@ -94,13 +94,10 @@ export default function LoginPage() {
     <div className="login">
       <Form method="post" className="login__form">
         <div className="login__email">
-          <label htmlFor="username" className="login__label">
-            Username
-          </label>
-
           <input
-            ref={userNameRef}
             id="username"
+            ref={userNameRef}
+            placeholder="username"
             required
             autoFocus={true}
             name="username"
@@ -118,12 +115,10 @@ export default function LoginPage() {
         </div>
 
         <div className="login__password">
-          <label htmlFor="password" className="login__label">
-            Password
-          </label>
           <input
             id="password"
             ref={passwordRef}
+            placeholder="password"
             name="password"
             type="password"
             autoComplete="current-password"
@@ -135,9 +130,20 @@ export default function LoginPage() {
             <div className="">{actionData.errors.password}</div>
           )}
         </div>
+        <div className="login__buttons">
         <button type="submit" className="login__button">
           Log in
         </button>
+        <Link
+            className="login__button"
+            to={{
+              pathname: "/signup",
+              search: searchParams.toString(),
+            }}
+        >
+          Sign up
+        </Link>
+        </div>
         <div className="">
           <div className="">
             <input id="remember" name="remember" type="checkbox" className="" />
@@ -147,15 +153,7 @@ export default function LoginPage() {
           </div>
           <div className="">
             Don't have an account?{" "}
-            <Link
-              className=""
-              to={{
-                pathname: "/signup",
-                search: searchParams.toString(),
-              }}
-            >
-              Sign up
-            </Link>
+
           </div>
         </div>
       </Form>

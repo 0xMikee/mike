@@ -131,12 +131,10 @@ export default function Signup() {
     <div className="login">
       <Form method="post" className="login__form">
         <div className="login__name">
-          <label htmlFor="username" className="login__label">
-            UserName
-          </label>
           <input
-            ref={userNameRef}
             id="username"
+            ref={userNameRef}
+            placeholder="username"
             required
             autoFocus={true}
             name="username"
@@ -152,12 +150,10 @@ export default function Signup() {
         </div>
 
         <div className="login__name">
-          <label htmlFor="name" className="login__label">
-            Name
-          </label>
           <input
-            ref={nameRef}
             id="name"
+            ref={nameRef}
+            placeholder="name"
             required
             name="name"
             type="name"
@@ -173,12 +169,10 @@ export default function Signup() {
         </div>
 
         <div className="login__email">
-          <label htmlFor="email" className="login__label">
-            Email
-          </label>
           <input
-            ref={emailRef}
             id="email"
+            ref={emailRef}
+            placeholder="email"
             required
             name="email"
             type="email"
@@ -195,12 +189,10 @@ export default function Signup() {
         </div>
 
         <div className="login__password">
-          <label htmlFor="password" className="login__label">
-            Password
-          </label>
           <input
             id="password"
             ref={passwordRef}
+            placeholder="password"
             name="password"
             type="password"
             autoComplete="new-password"
@@ -209,7 +201,7 @@ export default function Signup() {
             className="login__input"
           />
           {actionData?.errors?.password && (
-            <div className="pt-1 text-red-700" id="password-error">
+            <div className="" id="password-error">
               {actionData.errors.password}
             </div>
           )}
@@ -218,11 +210,11 @@ export default function Signup() {
         <button type="submit" className="login__button">
           Create Account
         </button>
-        <div className="flex items-center justify-center">
-          <div className="text-center text-sm text-gray-500">
+        <div className="">
+          <div className="">
             Already have an account?{" "}
             <Link
-              className="text-blue-500 underline"
+              className=""
               to={{
                 pathname: "/login",
                 search: searchParams.toString(),
