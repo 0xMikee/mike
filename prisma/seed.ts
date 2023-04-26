@@ -43,7 +43,7 @@ async function seed() {
               file: {
                 create: {
                   blob: await downloadFile(
-                      `https://randomuser.me/api/portraits/${imageGender}/${imageNumber}.jpg`
+                    `https://randomuser.me/api/portraits/${imageGender}/${imageNumber}.jpg`
                   ),
                 },
               },
@@ -59,16 +59,15 @@ async function seed() {
 
   console.time(`👮 Created ${totalAdmins} admins...`);
   const adminIds = users.slice(0, totalAdmins).map((user) => user.id);
-  const admins = await Promise.all(
-    adminIds.map(async (id) => {
-      const admin = await prisma.admin.create({
-        data: {
-          userId: id,
-        },
-      });
-      return admin;
-    })
-  );
+
+  adminIds.map(async (id) => {
+    return await prisma.admin.create({
+      data: {
+        userId: id,
+      },
+    });
+  });
+
   console.timeEnd(`👮 Created ${totalAdmins} admins...`);
 
   await prisma.user.create({
@@ -82,7 +81,7 @@ async function seed() {
           file: {
             create: {
               blob: await downloadFile(
-                `https://i.imgur.com/XfxNR45.jpg`
+                `https://www.seekpng.com/png/full/965-9654017_mike-wazowski-png-mike-wazowski-little.png`
               ),
             },
           },

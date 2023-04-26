@@ -1,0 +1,18 @@
+.userPage {
+  display: grid;
+  gap: 15px;
+  justify-items: center;
+}
+.userPage__photo {
+  width: 203px;
+  height: 203px;
+  border-radius: 33%;
+}
+.userPage__editLink {
+  text-decoration: none;
+  color: var(--color-text);
+  font-weight: bold;
+}
+.userPage__editLink:hover {
+  text-decoration: underline;
+}

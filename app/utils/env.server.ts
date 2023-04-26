@@ -1,22 +1,22 @@
-import invariant from 'tiny-invariant'
+import invariant from "tiny-invariant";
 
 const requiredServerEnvs = [
-  'NODE_ENV',
-  'DATABASE_URL',
-  'SESSION_SECRET',
-  'ADMIN_EMAIL',
-] as const
+  "NODE_ENV",
+  "DATABASE_URL",
+  "SESSION_SECRET",
+  "ADMIN_EMAIL",
+] as const;
 
 declare global {
   namespace NodeJS {
     interface ProcessEnv
-        extends Record<typeof requiredServerEnvs[number], string> {}
+      extends Record<(typeof requiredServerEnvs)[number], string> {}
   }
 }
 
 export function init() {
   for (const env of requiredServerEnvs) {
-    invariant(process.env[env], `${env} is required`)
+    invariant(process.env[env], `${env} is required`);
   }
 }
 
@@ -30,19 +30,19 @@ export function init() {
  * @returns all public ENV variables
  */
 export function getEnv() {
-  invariant(process.env.NODE_ENV, 'NODE_ENV should be defined')
+  invariant(process.env.NODE_ENV, "NODE_ENV should be defined");
 
   return {
     MODE: process.env.NODE_ENV,
     ADMIN_EMAIL: process.env.ADMIN_EMAIL,
-  }
+  };
 }
 
-type ENV = ReturnType<typeof getEnv>
+type ENV = ReturnType<typeof getEnv>;
 
 declare global {
-  var ENV: ENV
+  var ENV: ENV;
   interface Window {
-    ENV: ENV
+    ENV: ENV;
   }
 }

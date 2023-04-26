@@ -1,28 +1,35 @@
 .userMenu {
   display: grid;
-  gap: 10px;
   background-color: var(--color-secondary);
-  padding: 20px;
   border-radius: 16px;
 }
 .userMenu__link {
   color: var(--color-text);
   outline: none;
   text-decoration: none;
+  padding: 10px 20px;
+}
+.userMenu__link:hover {
+  background-color: var(--color-secondary-2);
+}
+.userMenu__link:hover:first-child {
+  border-radius: 16px 16px 0 0;
 }
 .userMenu__settings {
   display: flex;
   gap: 10px;
+  justify-content: center;
+  padding: 10px 0 10px;
 }
 .userMenu__themeSwitcher,
 .userMenu__logOut {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px;
+  padding: 5px;
   border: 1px solid #a7a7a7;
   background: none;
   cursor: pointer;
   color: var(--color-text);
-  border-radius: 8px;
+  border-radius: 10px;
 }

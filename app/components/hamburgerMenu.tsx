@@ -1,7 +1,6 @@
 import { SymbolsIconSVG } from "~/components/IconSVG";
-import { NavLink } from "~/components/navbar";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { Form, Link } from "@remix-run/react";
+import { Link } from "@remix-run/react";
 import styles from "~/styles/css/5_components/hamburgerMenu.css";
 import { useOptionalAdminUser, useOptionalUser } from "~/utils/misc";
 import { LogoutConfirm } from "~/components/logoutConfirm";
@@ -33,7 +32,7 @@ export const HamburgerMenu = () => {
             >
               <div className="navbar__mobileLinks">
                 <DropdownMenu.Item asChild>
-                  {isAdmin && <Link to={"/admin"}>Admin</Link>}
+                  {isAdmin && <Link to={"/admin+"}>Admin</Link>}
                 </DropdownMenu.Item>
                 <DropdownMenu.Item asChild>
                   <Link to={"/notes"}>Notes</Link>

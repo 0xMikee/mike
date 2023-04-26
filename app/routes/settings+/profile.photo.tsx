@@ -1,22 +1,19 @@
-import * as Dialog from "@radix-ui/react-dialog";
 import {
-  DataFunctionArgs,
   json,
   redirect,
   unstable_createMemoryUploadHandler,
   unstable_parseMultipartFormData,
 } from "@remix-run/node";
+import type { DataFunctionArgs } from "@remix-run/node";
 import {
   Form,
   Link,
-  useActionData,
   useFetcher,
   useLoaderData,
-  useNavigate,
 } from "@remix-run/react";
 import { useState } from "react";
 import { z } from "zod";
-import * as deleteImageRoute from "~/routes/resources/delete-image";
+import * as deleteImageRoute from "~/routes/resources+/delete-image";
 import { authenticator } from "~/utils/auth.server";
 import { prisma } from "~/utils/db.server";
 import {
@@ -51,27 +48,27 @@ export async function action({ request }: DataFunctionArgs) {
   const userId = await getUserId(request);
   const contentLength = Number(request.headers.get("Content-Length"));
   if (
-    contentLength &&
-    Number.isFinite(contentLength) &&
-    contentLength > MAX_SIZE
+      contentLength &&
+      Number.isFinite(contentLength) &&
+      contentLength > MAX_SIZE
   ) {
     return json(
-      {
-        status: "error",
-        errors: {
-          formErrors: [],
-          fieldErrors: { photoFile: ["File too large"] },
-        },
-      } as const,
-      { status: 400 }
+        {
+          status: "error",
+          errors: {
+            formErrors: [],
+            fieldErrors: { photoFile: ["File too large"] },
+          },
+        } as const,
+        { status: 400 }
     );
   }
   const formData = await unstable_parseMultipartFormData(
-    request,
-    unstable_createMemoryUploadHandler({ maxPartSize: MAX_SIZE })
+      request,
+      unstable_createMemoryUploadHandler({ maxPartSize: MAX_SIZE })
   );
   const result = PhotoFormSchema.safeParse(
-    preprocessFormData(formData, PhotoFormSchema)
+      preprocessFormData(formData, PhotoFormSchema)
   );
 
   if (!result.success) {
@@ -111,47 +108,35 @@ export async function action({ request }: DataFunctionArgs) {
 
   if (previousUserPhoto?.imageId) {
     void prisma.image
-      .delete({
-        where: { fileId: previousUserPhoto.imageId },
-      })
-      .catch(() => {}); // ignore the error, maybe it never existed?
-  }
+        .delete({
+          where: { fileId: previousUserPhoto.imageId },
+        })
+        .catch(() => {
+        });
 
-  return redirect("/settings/profile");
+    return redirect("/settings/profile");
+  }
 }
 
 export default function PhotoChooserModal() {
   const data = useLoaderData<typeof loader>();
   const [newImageSrc, setNewImageSrc] = useState<string | null>(null);
-  const navigate = useNavigate();
   const deleteImageFetcher = useFetcher<typeof deleteImageRoute.action>();
-  const actionData = useActionData<typeof action>();
   const { form, fields } = useForm({
     fieldMetadatas: data.fieldMetadatas,
     name: "profile-photo",
-    errors: actionData?.errors,
   });
 
   const deleteProfilePhotoFormId = "delete-profile-photo";
-  const dismissModal = () => navigate("..");
 
   return (
-    <Dialog.Root open={true}>
-      <Dialog.Portal className="content">
-        <Dialog.Overlay className="fixed inset-0 backdrop-blur-[2px]" />
-        <Dialog.Content
-          onEscapeKeyDown={dismissModal}
-          onInteractOutside={dismissModal}
-          onPointerDownOutside={dismissModal}
-          className="content"
-        >
-          <Dialog.Title asChild className="text-center">
+    <div className="profilePage">
+      <div className="content">
             <h2 className="text-h2">Profile photo</h2>
-          </Dialog.Title>
           <Form
             method="POST"
             encType="multipart/form-data"
-            className="mt-8 flex flex-col items-center justify-center gap-10"
+            className=""
             onReset={() => setNewImageSrc(null)}
           >
             <img
@@ -164,7 +149,7 @@ export default function PhotoChooserModal() {
               {...fields.photoFile.props}
               type="file"
               accept="image/*"
-              className="sr-only"
+              className=""
               tabIndex={newImageSrc ? -1 : 0}
               onChange={(e) => {
                 const file = e.currentTarget.files?.[0];
@@ -178,26 +163,17 @@ export default function PhotoChooserModal() {
               }}
             />
             {newImageSrc ? (
-              <div className="flex gap-4">
-                <Button type="submit">
-                  Save Photo
-                </Button>
-                <Button type="reset">
-                  Reset
-                </Button>
+              <div className="">
+                <Button type="submit">Save Photo</Button>
+                <Button type="reset">Reset</Button>
               </div>
             ) : (
               <div className="flex gap-4">
-                <LabelButton
-                  {...fields.photoFile.labelProps}
-                >
+                <LabelButton {...fields.photoFile.labelProps}>
                   ✏️ Change
                 </LabelButton>
                 {data.user.imageId ? (
-                  <Button
-                    type="submit"
-                    form={deleteProfilePhotoFormId}
-                  >
+                  <Button type="submit" form={deleteProfilePhotoFormId}>
                     🗑 Delete
                   </Button>
                 ) : null}
@@ -205,17 +181,14 @@ export default function PhotoChooserModal() {
             )}
             {form.errorUI}
           </Form>
-          <Dialog.Close asChild>
             <Link
-              to=".."
+              to="/settings/profile"
               aria-label="Close"
-              className="absolute right-10 top-10"
+              className=""
             >
               ❌
             </Link>
-          </Dialog.Close>
-        </Dialog.Content>
-      </Dialog.Portal>
+      </div>
       <deleteImageFetcher.Form
         method="POST"
         id={deleteProfilePhotoFormId}
@@ -223,6 +196,6 @@ export default function PhotoChooserModal() {
       >
         <input name="imageId" type="hidden" value={data.user.imageId ?? ""} />
       </deleteImageFetcher.Form>
-    </Dialog.Root>
+    </div>
   );
 }
