@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
   margin-top: 120px;
+  max-height: 100vh;
 }
 .login__form {
   display: grid;
@@ -51,6 +52,7 @@
   color: var(--color-text);
   padding: 5px;
   font-size: 13px;
+  font-weight: initial;
   border-radius: 4px;
   text-decoration: none;
   text-align: center;
