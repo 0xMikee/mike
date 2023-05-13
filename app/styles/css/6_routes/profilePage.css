@@ -11,3 +11,6 @@
   height: 203px;
   border-radius: 33%;
 }
+.profilePage__changeInput--hidden {
+  display: none;
+}

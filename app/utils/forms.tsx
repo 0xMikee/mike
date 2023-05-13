@@ -1,7 +1,7 @@
 import * as Checkbox from "@radix-ui/react-checkbox";
 import { Link } from "@remix-run/react";
 import clsx from "clsx";
-import React, { useEffect, useId, useRef } from "react";
+import React, { ReactNode, useEffect, useId, useRef } from "react";
 import { z } from "zod";
 import * as State from "~/components/state-ui";
 import { typedBoolean } from "./misc";
@@ -438,12 +438,12 @@ export function Field({
   className,
 }: {
   labelProps: Omit<JSX.IntrinsicElements["label"], "className">;
-  inputProps: Omit<JSX.IntrinsicElements["input"], "className">;
+  inputProps: Omit<JSX.IntrinsicElements["input"], "className"> | null;
   errors?: ListOfErrors;
   className?: string;
 }) {
   const fallbackId = useId();
-  const id = inputProps.id ?? fallbackId;
+  const id = inputProps?.id ?? fallbackId;
   const errorId = errors?.length ? `${id}-error` : undefined;
   return (
     <div className={""}>
@@ -575,8 +575,19 @@ export function ButtonLink({
   return <Link {...props} className={""} />;
 }
 
+interface LabelButtonProps {
+  className?: string,
+  children: ReactNode
+}
+
 export function LabelButton({
+    className,
+    children,
   ...props
-}: Omit<React.ComponentPropsWithoutRef<"label">, "className">) {
-  return <label {...props} className={""} />;
+}: LabelButtonProps) {
+  return (
+      <label {...props} className={className}>
+        {children}
+      </label>
+  );
 }

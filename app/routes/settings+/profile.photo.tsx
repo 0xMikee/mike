@@ -116,6 +116,8 @@ export async function action({ request }: DataFunctionArgs) {
 
     return redirect("/settings/profile");
   }
+
+  return null
 }
 
 export default function PhotoChooserModal() {
@@ -131,8 +133,6 @@ export default function PhotoChooserModal() {
 
   return (
     <div className="profilePage">
-      <div className="content">
-            <h2 className="text-h2">Profile photo</h2>
           <Form
             method="POST"
             encType="multipart/form-data"
@@ -149,7 +149,7 @@ export default function PhotoChooserModal() {
               {...fields.photoFile.props}
               type="file"
               accept="image/*"
-              className=""
+              className="profilePage__changeInput profilePage__changeInput--hidden"
               tabIndex={newImageSrc ? -1 : 0}
               onChange={(e) => {
                 const file = e.currentTarget.files?.[0];
@@ -168,8 +168,8 @@ export default function PhotoChooserModal() {
                 <Button type="reset">Reset</Button>
               </div>
             ) : (
-              <div className="flex gap-4">
-                <LabelButton {...fields.photoFile.labelProps}>
+              <div className="">
+                <LabelButton className={"profilePage__changeInput"} {...fields.photoFile.labelProps}>
                   ✏️ Change
                 </LabelButton>
                 {data.user.imageId ? (
@@ -188,7 +188,6 @@ export default function PhotoChooserModal() {
             >
               ❌
             </Link>
-      </div>
       <deleteImageFetcher.Form
         method="POST"
         id={deleteProfilePhotoFormId}
