@@ -36,8 +36,8 @@ export async function action({ request }: ActionArgs) {
 
   if (typeof username !== "string" || username.length === 0) {
     return json<ActionData>(
-        { errors: { username: "Username is required", password: null } },
-        { status: 400 }
+      { errors: { username: "Username is required", password: null } },
+      { status: 400 }
     );
   }
 
@@ -52,7 +52,7 @@ export async function action({ request }: ActionArgs) {
 
   if (!user) {
     return json(
-     { errors: { username: null, password: "Invalid username or password" } },
+      { errors: { username: null, password: "Invalid username or password" } },
       { status: 400 }
     );
   }
@@ -68,8 +68,8 @@ export async function action({ request }: ActionArgs) {
 export const meta: V2_MetaFunction = () => {
   return [
     { title: "Login | MikeApp" },
-    { name: "viewport", content: "width=device-width,initial-scale=1" }
-  ]
+    { name: "viewport", content: "width=device-width,initial-scale=1" },
+  ];
 };
 
 export default function LoginPage() {
@@ -124,20 +124,19 @@ export default function LoginPage() {
           )}
         </div>
         <div className="login__buttons">
-        <button type="submit" className="login__button">
-          Log in
-        </button>
-        <Link
+          <button type="submit" className="login__button">
+            Log in
+          </button>
+          <Link
             className="login__button"
             to={{
               pathname: "/signup",
               search: searchParams.toString(),
             }}
-        >
-          Sign up
-        </Link>
+          >
+            Sign up
+          </Link>
         </div>
-
       </Form>
     </div>
   );

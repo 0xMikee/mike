@@ -436,112 +436,28 @@ export function Field({
   inputProps,
   errors,
   className,
+  parentClassName,
 }: {
-  labelProps: Omit<JSX.IntrinsicElements["label"], "className">;
+  labelProps: Omit<JSX.IntrinsicElements["div"], "className">;
   inputProps: Omit<JSX.IntrinsicElements["input"], "className"> | null;
   errors?: ListOfErrors;
   className?: string;
+  parentClassName?: string;
 }) {
   const fallbackId = useId();
   const id = inputProps?.id ?? fallbackId;
   const errorId = errors?.length ? `${id}-error` : undefined;
   return (
-    <div className={""}>
+    <div className={parentClassName ? parentClassName : "inputWithLabel"}>
+      <div {...labelProps} />
       <input
         id={id}
         aria-invalid={errorId ? true : undefined}
         aria-errormessage={errorId}
-        placeholder=" "
+        className={className}
         {...inputProps}
-        className=""
       />
-      <label htmlFor={id} {...labelProps} />
-      <div className="">
-        {errorId ? <ErrorList id={errorId} errors={errors} /> : null}
-      </div>
-    </div>
-  );
-}
-
-export function TextareaField({
-  labelProps,
-  textareaProps,
-  errors,
-  className,
-}: {
-  labelProps: Omit<JSX.IntrinsicElements["label"], "className">;
-  textareaProps: Omit<JSX.IntrinsicElements["textarea"], "className">;
-  errors?: ListOfErrors;
-  className?: string;
-}) {
-  const fallbackId = useId();
-  const id = textareaProps.id ?? textareaProps.name ?? fallbackId;
-  const errorId = errors?.length ? `${id}-error` : undefined;
-  return (
-    <div className={""}>
-      <textarea
-        id={id}
-        aria-invalid={errorId ? true : undefined}
-        aria-errormessage={errorId}
-        placeholder=" "
-        {...textareaProps}
-        className=""
-      />
-      <label htmlFor={id} {...labelProps} />
-      <div className="">
-        {errorId ? <ErrorList id={errorId} errors={errors} /> : null}
-      </div>
-    </div>
-  );
-}
-
-export function CheckboxField({
-  labelProps,
-  buttonProps,
-  errors,
-}: {
-  labelProps: Omit<JSX.IntrinsicElements["label"], "className">;
-  buttonProps: Omit<
-    React.ComponentPropsWithoutRef<typeof Checkbox.Root>,
-    "type" | "className"
-  > & {
-    type?: string;
-  };
-  errors?: ListOfErrors;
-}) {
-  const fallbackId = useId();
-  const id = buttonProps.id ?? buttonProps.name ?? fallbackId;
-  const errorId = errors?.length ? `${id}-error` : undefined;
-  return (
-    <div className={""}>
-      <div className="">
-        <Checkbox.Root
-          id={id}
-          aria-invalid={errorId ? true : undefined}
-          aria-errormessage={errorId}
-          {...buttonProps}
-          type="button"
-        >
-          <Checkbox.Indicator className="">
-            <svg viewBox="0 0 8 8">
-              <path
-                d="M1,4 L3,6 L7,2"
-                stroke="black"
-                strokeWidth="1"
-                fill="none"
-              />
-            </svg>
-          </Checkbox.Indicator>
-        </Checkbox.Root>
-        <label
-          htmlFor={id}
-          {...labelProps}
-          className=""
-        />
-      </div>
-      <div className="">
-        {errorId ? <ErrorList id={errorId} errors={errors} /> : null}
-      </div>
+      {errorId ? <ErrorList id={errorId} errors={errors} /> : null}
     </div>
   );
 }
@@ -576,18 +492,18 @@ export function ButtonLink({
 }
 
 interface LabelButtonProps {
-  className?: string,
-  children: ReactNode
+  className?: string;
+  children: ReactNode;
 }
 
 export function LabelButton({
-    className,
-    children,
+  className,
+  children,
   ...props
 }: LabelButtonProps) {
   return (
-      <label {...props} className={className}>
-        {children}
-      </label>
+    <label {...props} className={className}>
+      {children}
+    </label>
   );
 }

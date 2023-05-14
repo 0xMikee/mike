@@ -20,7 +20,7 @@ export const links = () => {
   return [{ rel: "stylesheet", href: loginStyles }];
 };
 
-export const loader: LoaderFunction = async ({request}) => {
+export const loader: LoaderFunction = async ({ request }) => {
   const userId = await getUserId(request);
   if (userId) return redirect("/");
   return json({});
@@ -207,15 +207,15 @@ export default function Signup() {
           )}
         </div>
         <div className="login__buttons">
-        <button type="submit" className="login__button">
-          Create Account
-        </button>
+          <button type="submit" className="login__button">
+            Create Account
+          </button>
           <Link
-              className="login__button"
-              to={{
-                pathname: "/login",
-                search: searchParams.toString(),
-              }}
+            className="login__button"
+            to={{
+              pathname: "/login",
+              search: searchParams.toString(),
+            }}
           >
             Log in
           </Link>

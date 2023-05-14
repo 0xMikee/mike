@@ -13,9 +13,31 @@
     border-radius: 33%;
   }
 
+  &__settings {
+    display: grid;
+    gap: 16px;
+  }
+
   &__changeInput {
     &--hidden {
       display: none;
+    }
+  }
+
+  &__input {
+    padding: 10px;
+    width: 220px;
+    height: 40px;
+    outline: none;
+    border: none;
+    border-radius: 9px;
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+
+    &:disabled {
+      background-color: #241010;
+      color: #c99a9a;
+      cursor: not-allowed;
     }
   }
 }

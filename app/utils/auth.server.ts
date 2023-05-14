@@ -35,23 +35,23 @@ authenticator.use(
 );
 
 export async function requireUserId(
-    request: Request,
-    { redirectTo }: { redirectTo?: string | null } = {},
+  request: Request,
+  { redirectTo }: { redirectTo?: string | null } = {}
 ) {
-  const requestUrl = new URL(request.url)
+  const requestUrl = new URL(request.url);
   redirectTo =
-      redirectTo === null
-          ? null
-          : redirectTo ?? `${requestUrl.pathname}${requestUrl.search}`
+    redirectTo === null
+      ? null
+      : redirectTo ?? `${requestUrl.pathname}${requestUrl.search}`;
   const loginParams = redirectTo
-      ? new URLSearchParams([['redirectTo', redirectTo]])
-      : null
-  const failureRedirect = ['/login', loginParams?.toString()]
-      .filter(typedBoolean)
-      .join('?')
+    ? new URLSearchParams([["redirectTo", redirectTo]])
+    : null;
+  const failureRedirect = ["/login", loginParams?.toString()]
+    .filter(typedBoolean)
+    .join("?");
   return await authenticator.isAuthenticated(request, {
     failureRedirect,
-  })
+  });
 }
 
 export async function getUserById(id: User["id"]) {

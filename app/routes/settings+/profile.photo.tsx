@@ -5,12 +5,7 @@ import {
   unstable_parseMultipartFormData,
 } from "@remix-run/node";
 import type { DataFunctionArgs } from "@remix-run/node";
-import {
-  Form,
-  Link,
-  useFetcher,
-  useLoaderData,
-} from "@remix-run/react";
+import { Form, Link, useFetcher, useLoaderData } from "@remix-run/react";
 import { useState } from "react";
 import { z } from "zod";
 import * as deleteImageRoute from "~/routes/resources+/delete-image";
@@ -48,27 +43,27 @@ export async function action({ request }: DataFunctionArgs) {
   const userId = await getUserId(request);
   const contentLength = Number(request.headers.get("Content-Length"));
   if (
-      contentLength &&
-      Number.isFinite(contentLength) &&
-      contentLength > MAX_SIZE
+    contentLength &&
+    Number.isFinite(contentLength) &&
+    contentLength > MAX_SIZE
   ) {
     return json(
-        {
-          status: "error",
-          errors: {
-            formErrors: [],
-            fieldErrors: { photoFile: ["File too large"] },
-          },
-        } as const,
-        { status: 400 }
+      {
+        status: "error",
+        errors: {
+          formErrors: [],
+          fieldErrors: { photoFile: ["File too large"] },
+        },
+      } as const,
+      { status: 400 }
     );
   }
   const formData = await unstable_parseMultipartFormData(
-      request,
-      unstable_createMemoryUploadHandler({ maxPartSize: MAX_SIZE })
+    request,
+    unstable_createMemoryUploadHandler({ maxPartSize: MAX_SIZE })
   );
   const result = PhotoFormSchema.safeParse(
-      preprocessFormData(formData, PhotoFormSchema)
+    preprocessFormData(formData, PhotoFormSchema)
   );
 
   if (!result.success) {
@@ -108,16 +103,15 @@ export async function action({ request }: DataFunctionArgs) {
 
   if (previousUserPhoto?.imageId) {
     void prisma.image
-        .delete({
-          where: { fileId: previousUserPhoto.imageId },
-        })
-        .catch(() => {
-        });
+      .delete({
+        where: { fileId: previousUserPhoto.imageId },
+      })
+      .catch(() => {});
 
     return redirect("/settings/profile");
   }
 
-  return null
+  return null;
 }
 
 export default function PhotoChooserModal() {
@@ -133,61 +127,60 @@ export default function PhotoChooserModal() {
 
   return (
     <div className="profilePage">
-          <Form
-            method="POST"
-            encType="multipart/form-data"
-            className=""
-            onReset={() => setNewImageSrc(null)}
-          >
-            <img
-              src={newImageSrc ?? getUserImgSrc(data.user.imageId)}
-              className="navbar__photo"
-              alt={data.user.name ?? data.user.username}
-            />
-            {fields.photoFile.errorUI}
-            <input
-              {...fields.photoFile.props}
-              type="file"
-              accept="image/*"
-              className="profilePage__changeInput profilePage__changeInput--hidden"
-              tabIndex={newImageSrc ? -1 : 0}
-              onChange={(e) => {
-                const file = e.currentTarget.files?.[0];
-                if (file) {
-                  const reader = new FileReader();
-                  reader.onload = (event) => {
-                    setNewImageSrc(event.target?.result?.toString() ?? null);
-                  };
-                  reader.readAsDataURL(file);
-                }
-              }}
-            />
-            {newImageSrc ? (
-              <div className="">
-                <Button type="submit">Save Photo</Button>
-                <Button type="reset">Reset</Button>
-              </div>
-            ) : (
-              <div className="">
-                <LabelButton className={"profilePage__changeInput"} {...fields.photoFile.labelProps}>
-                  ✏️ Change
-                </LabelButton>
-                {data.user.imageId ? (
-                  <Button type="submit" form={deleteProfilePhotoFormId}>
-                    🗑 Delete
-                  </Button>
-                ) : null}
-              </div>
-            )}
-            {form.errorUI}
-          </Form>
-            <Link
-              to="/settings/profile"
-              aria-label="Close"
-              className=""
+      <Form
+        method="POST"
+        encType="multipart/form-data"
+        className=""
+        onReset={() => setNewImageSrc(null)}
+      >
+        <img
+          src={newImageSrc ?? getUserImgSrc(data.user.imageId)}
+          className="navbar__photo"
+          alt={data.user.name ?? data.user.username}
+        />
+        {fields.photoFile.errorUI}
+        <input
+          {...fields.photoFile.props}
+          type="file"
+          accept="image/*"
+          className="profilePage__changeInput profilePage__changeInput--hidden"
+          tabIndex={newImageSrc ? -1 : 0}
+          onChange={(e) => {
+            const file = e.currentTarget.files?.[0];
+            if (file) {
+              const reader = new FileReader();
+              reader.onload = (event) => {
+                setNewImageSrc(event.target?.result?.toString() ?? null);
+              };
+              reader.readAsDataURL(file);
+            }
+          }}
+        />
+        {newImageSrc ? (
+          <div className="">
+            <Button type="submit">Save Photo</Button>
+            <Button type="reset">Reset</Button>
+          </div>
+        ) : (
+          <div className="">
+            <LabelButton
+              className={"profilePage__changeInput"}
+              {...fields.photoFile.labelProps}
             >
-              ❌
-            </Link>
+              ✏️ Change
+            </LabelButton>
+            {data.user.imageId ? (
+              <Button type="submit" form={deleteProfilePhotoFormId}>
+                🗑 Delete
+              </Button>
+            ) : null}
+          </div>
+        )}
+        {form.errorUI}
+      </Form>
+      <Link to="/settings/profile" aria-label="Close" className="">
+        ❌
+      </Link>
       <deleteImageFetcher.Form
         method="POST"
         id={deleteProfilePhotoFormId}
