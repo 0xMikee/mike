@@ -1,6 +1,7 @@
 import { useMatches } from "@remix-run/react";
 import { useMemo } from "react";
 import type { User } from "~/utils/auth.server";
+import { adminEmails } from "~/utils/adminEmails";
 
 const DEFAULT_REDIRECT = "/";
 
@@ -59,8 +60,13 @@ export function useOptionalUser(): User | undefined {
 export function useOptionalAdminUser() {
   const user = useOptionalUser();
   if (!user) return null;
-  if (user.email !== ENV.ADMIN_EMAIL) return null;
-  return user;
+
+  if (adminEmails.indexOf(user.email) > -1) {
+    return user;
+  } else {
+    return null;
+  }
+
 }
 
 export function useUser(): User {

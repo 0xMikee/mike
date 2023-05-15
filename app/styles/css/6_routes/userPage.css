@@ -3,9 +3,45 @@
   gap: 15px;
   justify-items: center;
 }
+.userPage__header {
+  margin-bottom: 15px;
+}
 .userPage__photo {
   width: 203px;
   height: 203px;
+  border-radius: 33%;
+}
+.userPage__userList {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  justify-content: space-evenly;
+  row-gap: 15px;
+  margin-bottom: 50px;
+}
+@media only screen and (max-width: 639px) {
+  .userPage__userList {
+    grid-template-columns: repeat(2, auto);
+  }
+}
+.userPage__userListLink {
+  color: var(--color-text);
+  text-decoration: none;
+}
+.userPage__userListLink:hover {
+  text-decoration: underline;
+}
+.userPage__userListName {
+  line-height: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100px;
+  text-align: center;
+  margin-top: 5px;
+}
+.userPage__listPhoto {
+  width: 100px;
+  height: 100px;
   border-radius: 33%;
 }
 .userPage__editLink {

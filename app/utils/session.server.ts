@@ -2,6 +2,7 @@ import { createCookieSessionStorage, redirect } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import type { User } from "~/utils/auth.server";
 import { getUserById } from "~/utils/auth.server";
+import { adminEmails } from "~/utils/adminEmails";
 
 invariant(process.env.SESSION_SECRET, "SESSION_SECRET must be set");
 
@@ -63,10 +64,11 @@ export async function requireUser(request: Request) {
 
 export async function requireAdminUser(request: Request) {
   const user = await requireUser(request);
-  if (user.email !== process.env.ADMIN_EMAIL) {
+  if (adminEmails.indexOf(user.email) > -1) {
+    return user;
+  } else {
     throw await redirect("/");
   }
-  return user;
 }
 
 export async function createUserSession({

@@ -5,15 +5,12 @@ import {
   Link,
   Outlet,
   useActionData,
-  useFormAction,
   useLoaderData,
-  useNavigation,
 } from "@remix-run/react";
 import { prisma } from "~/utils/db.server";
 import { getUserImgSrc } from "~/utils/misc";
 import styles from "~/styles/css/6_routes/profilePage.css";
 import {
-  Button,
   Field,
   getFieldsFromSchema,
   preprocessFormData,
@@ -22,7 +19,6 @@ import {
 import {
   authenticator,
   getPasswordHash,
-  requireUserId,
   verifyLogin,
 } from "~/utils/auth.server";
 import { z } from "zod";
@@ -32,7 +28,7 @@ import {
   passwordSchema,
   usernameSchema,
 } from "~/utils/user-validation";
-import { getUserId } from "~/utils/session.server";
+import { requireUserId } from "~/utils/session.server";
 
 const ProfileFormSchema = z
   .object({
@@ -69,7 +65,7 @@ export const links = () => {
 };
 
 export async function loader({ request }: DataFunctionArgs) {
-  const userId = await getUserId(request);
+  const userId = await requireUserId(request);
   const user = await prisma.user.findUnique({
     where: { id: userId },
     select: {
@@ -88,8 +84,8 @@ export async function loader({ request }: DataFunctionArgs) {
   return json({ user, fieldMetadatas: getFieldsFromSchema(ProfileFormSchema) });
 }
 
-export async function action({ request }: DataFunctionArgs) {
-  const userId = await getUserId(request);
+export const action = async ({ request }: DataFunctionArgs) => {
+  const userId = await requireUserId(request);
   const formData = await request.formData();
   const result = await ProfileFormSchema.safeParseAsync(
     preprocessFormData(formData, ProfileFormSchema)
@@ -102,6 +98,20 @@ export async function action({ request }: DataFunctionArgs) {
   }
 
   const { name, username, currentPassword, newPassword } = result.data;
+
+/*
+
+  @TODO: error label for exisiting username
+
+  const existingUserName = await getUserByUserName(username);
+
+  if (existingUserName) {
+    return json<ActionData>(
+        { errors: { username: "A user already exists with this username" } },
+        { status: 400 }
+    );
+  }
+*/
 
   const updatedUser = await prisma.user.update({
     select: { id: true, username: true },
@@ -157,6 +167,11 @@ export default function Profile() {
           }}
           errors={fields.username.errors}
         />
+{/*        {actionData?.errors?.username && (
+            <div id="email-error" className="login__errorLabel">
+              {actionData.errors.username}
+            </div>
+        )}*/}
         <Field
           className={"profilePage__input"}
           labelProps={{

@@ -3,7 +3,7 @@ import type { DataFunctionArgs } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { prisma } from "~/utils/db.server";
-import { getUserImgSrc } from "~/utils/misc";
+import { getUserImgSrc, useOptionalUser } from "~/utils/misc";
 import styles from "~/styles/css/6_routes/userPage.css";
 import { GeneralErrorBoundary } from "~/components/error-boundary";
 
@@ -31,6 +31,8 @@ export async function loader({ params }: DataFunctionArgs) {
 
 export default function UsernameIndex() {
   const data = useLoaderData<typeof loader>();
+  const loggedInUser = useOptionalUser();
+  const isLoggedInUser = data.user.id === loggedInUser?.id;
 
   return (
     <div className="userPage">
@@ -41,9 +43,11 @@ export default function UsernameIndex() {
       />
       <h1 className="userPage__name">{data.user.name ?? data.user.username}</h1>
       <p className="userPage__joinDate">Joined {data.userJoinedDisplay}</p>
-      <Link to="/settings/profile" className="userPage__editLink">
-        Edit profile
-      </Link>
+      {isLoggedInUser && (
+        <Link to="/settings/profile" className="userPage__editLink">
+          Edit profile
+        </Link>
+      )}
     </div>
   );
 }
