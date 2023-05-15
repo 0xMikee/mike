@@ -18,7 +18,7 @@ async function seed() {
   console.log("🖼️Cleaned up the images...");
   console.timeEnd("🧹 Cleaned up the database...");
 
-  const totalUsers = 40;
+  const totalUsers = 30;
   console.time(`👤 Created ${totalUsers} users...`);
   const users = await Promise.all(
     Array.from({ length: totalUsers }, async () => {

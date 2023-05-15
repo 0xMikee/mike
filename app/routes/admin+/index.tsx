@@ -1,4 +1,4 @@
-import { getUserImgSrc } from "~/utils/misc";
+import { getUserImgSrc, useOptionalUser, useUser } from "~/utils/misc";
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { requireAdminUser } from "~/utils/session.server";
@@ -19,7 +19,9 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 const AdminPage = () => {
   const data = useLoaderData<typeof loader>();
-  console.log(data.users);
+  const user = useUser().id
+  const loggedInUser = useOptionalUser();
+  const isLoggedInUser = user === loggedInUser?.id;
 
   return (
     <>
@@ -39,7 +41,7 @@ const AdminPage = () => {
                 alt={username}
                 className="userPage__listPhoto"
               />
-              <pre className="userPage__userListName">{name}</pre>
+              <pre className={id == user ? "userPage__userListName userPage__userListName--activeUser" : "userPage__userListName"}>{name}</pre>
             </Link>
           );
         })}
