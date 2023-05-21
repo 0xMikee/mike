@@ -20,8 +20,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 const AdminPage = () => {
   const data = useLoaderData<typeof loader>();
   const user = useUser().id
-  const loggedInUser = useOptionalUser();
-  const isLoggedInUser = user === loggedInUser?.id;
 
   return (
     <>
