@@ -1,6 +1,12 @@
 .homePage {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+  display: grid;
+}
+.homePage__youtubeConvertor {
+  justify-self: center;
+}
+.homePage__form {
+  display: grid;
+}
+.homePage__input {
+  width: 250px;
 }
